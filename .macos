@@ -39,14 +39,9 @@ echo "brew installing stuff"
 # awscli: aws command-line tools
 # yarn: just in case
 # zsh: better shell
-brew install git hub tig watchman tree rustup awscli ffmpeg yarn zsh
-
-echo "installing node (via nvm)"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-nvm install node
-
-echo "node --version: $(node --version)"
-echo "npm --version: $(npm --version)"
+# neovim: better vim
+# autojump: jump to directories
+brew install git hub tig watchman tree rustup awscli ffmpeg yarn zsh neovim autojump
 
 echo "installing apps with brew cask"
 brew cask install alfred google-chrome firefox divvy \
@@ -68,8 +63,17 @@ ln -s "${HOME}/dev/dotfiles/.zshrc" "${HOME}/.zshrc"
 ln -s "${HOME}/dev/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
 ln -s "${HOME}/dev/dotfiles/.gitconfig" "${HOME}/.gitconfig"
 
+echo "installing node (via nvm)"
+nvm install node
+
+echo "node --version: $(node --version)"
+echo "npm --version: $(npm --version)"
+
 echo "create screenshot dir"
 mkdir ~/Screenshots
+
+echo "setting up fuzzy search in terminal"
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --yes
 
 echo "making system modifications:"
 
