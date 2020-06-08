@@ -47,7 +47,7 @@ echo "installing apps with brew cask"
 brew cask install alfred google-chrome firefox divvy \
 bartender visual-studio-code 1password screenflow \
 spotify qmoji slack sketch fantastical iterm2 \
-jq spark sequel-pro rescuetime ngrok sourcetree
+spark sequel-pro rescuetime ngrok sourcetree
 
 echo "Generating an RSA token for GitHub"
 mkdir -p ~/.ssh
