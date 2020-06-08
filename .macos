@@ -46,7 +46,7 @@ brew install git hub tig watchman tree rustup awscli ffmpeg yarn zsh neovim auto
 echo "installing apps with brew cask"
 brew cask install alfred google-chrome firefox divvy \
 bartender visual-studio-code 1password screenflow \
-spotify qmoji slack sketch fantastical iterm2 todoist \
+spotify qmoji slack sketch fantastical iterm2 \
 jq spark sequel-pro rescuetime ngrok sourcetree
 
 echo "Generating an RSA token for GitHub"
@@ -58,6 +58,7 @@ eval "$(ssh-agent -s)"
 echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
 
 echo "cloning dotfiles"
+mkdir -p ~/dev
 git clone git@github.com:johnstonbl01/dotfiles.git "${HOME}/dev/dotfiles"
 ln -s "${HOME}/dev/dotfiles/.zshrc" "${HOME}/.zshrc"
 ln -s "${HOME}/dev/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
