@@ -1,8 +1,9 @@
 export LC_ALL="en_US.UTF-8"
 export ZSH="/Users/blake/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
-export PGDATA=export PGDATA='/usr/local/var/postgres'
-export PGHOST=localhost
+export NVM_COMPLETION=true
+export DEFAULT_AVD='Pixel_2_API_26'
+
 # use ripgrep inside vim for fzf
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 
@@ -54,9 +55,6 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-
-export DEFAULT_AVD='Pixel_2_API_26'
-
 # launches the optionally specified AVD
 # With no argument, it will use $DEFAULT_AVD or the first available AVD
 # e.g.: LaunchAvdForeground Nexus_5X_API_23
@@ -67,35 +65,20 @@ function LaunchAvdForeground {
 }
 
 # aliases
-# os
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-
-# browser
 alias devChrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session" --disable-web-security'
-
-# docker / kubernetes
 alias dc="docker compose"
 alias ku="kubectl"
-
-# react-native
 alias rn="react-native"
 alias rproxy='adb reverse tcp:9090 tcp:9090'
 alias aem="LaunchAvdForeground"
 alias rnlogcat='adb logcat *:S ReactNative:V ReactNativeJS:V'
-
-# git
 alias gco='git checkout'
-
-# vim
 alias vim="nvim"
-
-# npm
+alias cat="bat"
 alias nr="npm run"
-
-# dotfiles
 alias econf="cp ~/dev/dotfiles/project-files/.editorconfig ."
-
 
 # Removes merged git branches
 function gcmb {

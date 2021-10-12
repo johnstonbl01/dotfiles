@@ -42,7 +42,7 @@ echo "brew installing stuff"
 # ripgrep: better grep
 brew install git tig tree ffmpeg zsh neovim autojump \
 jq terraform ngrok go readline ripgrep zsh-autosuggestions \
-fzf
+fzf bat
 
 echo "installing apps with brew cask"
 brew cask install alfred google-chrome firefox divvy \
@@ -651,7 +651,8 @@ install terminal font (~/Downloads) \n\
 import iterm themes (~/dev/iterm-themes) \n\
 install vim plugins \n\
 install vs code plugins \n\
-import iterm profile
+import iterm profile \n\
+tokyo night vim theme (https://github.com/folke/tokyonight.nvim) \n\
 login to literally everything \n\
 
 "
