@@ -60,7 +60,7 @@ $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/instal
 
 echo "downloading terminal font"
 # https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/Inconsolata
-curl -o "${HOME}/Downloads/Inconsolata Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Inconsolata/complete/Inconsolata%20Nerd%20Font%20Complete.otf
+curl -o "${HOME}/Downloads/Inconsolata.zip" https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Inconsolata.zip
 
 echo "Generating an RSA token for GitHub"
 mkdir -p "${HOME}/.ssh"
@@ -644,6 +644,7 @@ install: \n\
   BarRemote (App Store) \n\
   RunCat (App Store) \n\
   BetterSnapTool (App Store) \n\
+  Sip (Download) \n\
 \n\
 restart terminal \n\
 npm login \n\
@@ -652,7 +653,5 @@ import iterm themes (~/dev/iterm-themes) \n\
 install vim plugins \n\
 install vs code plugins \n\
 import iterm profile \n\
-tokyo night vim theme (https://github.com/folke/tokyonight.nvim) \n\
 login to literally everything \n\
-
 "
