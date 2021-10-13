@@ -1,0 +1,8 @@
+{
+  "git.addGBlameToVirtualText": true,
+  "prettier.arrowParens": "always",
+  "prettier.trailingComma": "none",
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "tsserver.enableJavascript": false
+}
