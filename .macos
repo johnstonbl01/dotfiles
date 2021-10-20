@@ -80,7 +80,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 ln -sf "${HOME}/dev/dotfiles/zsh/.zshrc" "${HOME}/.zshrc"
 ln -s "${HOME}/dev/dotfiles/.gitignore_global" "${HOME}/.gitignore_global"
 ln -s "${HOME}/dev/dotfiles/.gitconfig" "${HOME}/.gitconfig"
-ln -s "${HOME}/dev/dotfiles/.vimrc" "${HOME}/.config/nvim/init.vim"
+ln -sf "${HOME}/dev/dotfiles/vim/init.vim" "${HOME}/.config/nvim/init.vim"
 ln -s "${HOME}/dev/dotfiles/zsh/dieter-custom.zsh-theme" "${HOME}/.oh-my-zsh/themes"
 
 echo "installing node (via nvm)"
