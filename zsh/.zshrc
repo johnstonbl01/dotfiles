@@ -1,5 +1,5 @@
 export LC_ALL="en_US.UTF-8"
-export ZSH="/Users/blake/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 export NVM_COMPLETION=true
 export DEFAULT_AVD='Pixel_2_API_26'
