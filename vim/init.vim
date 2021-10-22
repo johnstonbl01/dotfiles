@@ -91,6 +91,8 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>q :wincmd q<CR>
 nnoremap <leader>ws :wincmd s<CR>
 nnoremap <leader>wv :wincmd v<CR>
+nnoremap <leader>wr :wincmd r<CR>
+nnoremap <leader>wx :wincmd x<CR>
 
 " Enables pane navigation with h/j/k/l
 nmap <silent> <c-k> :wincmd k<CR>
