@@ -89,6 +89,8 @@ nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 
 " Close panes with q
 nnoremap <leader>q :wincmd q<CR>
+nnoremap <leader>ws :wincmd s<CR>
+nnoremap <leader>wv :wincmd v<CR>
 
 " Enables pane navigation with h/j/k/l
 nmap <silent> <c-k> :wincmd k<CR>
@@ -124,7 +126,6 @@ let NERDTreeStatusLine='NERDTree'
 " Set directory color in NerdTree
 highlight Directory guifg=#CCCCCC
 highlight File guifg=#777FA7
-
 
 " let g:lightline = { 'colorscheme': 'nightowl' }
 let g:lightline = { 'colorscheme': 'tokyonight' }
