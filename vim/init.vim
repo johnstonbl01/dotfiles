@@ -97,7 +97,7 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 " Use tab for autocomplete accept
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-Y>" : "\<TAB>"<CR>
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-Y>" : "\<TAB>"
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
