@@ -2,21 +2,17 @@
 " Plugins
 " ======================================
 call plug#begin("~/.vim/plugged")
+Plug 'tpope/vim-commentary'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'haishanh/night-owl.vim'
 Plug 'pantharshit00/vim-prisma'
-Plug 'pangloss/vim-javascript'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdtree'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/nerdtree-project-plugin'
 Plug 'neoclide/coc.nvim', { 'branch':'release' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
@@ -32,12 +28,10 @@ let g:coc_global_extensions = ['coc-tsserver',
   \ 'coc-prettier',
   \ 'coc-prisma',
   \ 'coc-yaml']
-Plug 'preservim/nerdcommenter'
-Plug 'jparise/vim-graphql'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'javascriptreact', 'typescriptreact'] }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'dense-analysis/ale'
 Plug 'maximbaz/lightline-ale'
@@ -59,6 +53,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set smartindent
+set hidden
 
 " Open new split panes to right and below
 set splitright
@@ -84,8 +79,9 @@ let mapleader = " "
 nnoremap <leader>pv :Vex<CR>
 
 " Open new finder to find files
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>ff :Telescope find_files<CR>
+nnoremap <leader>fg :Telescope live_grep<CR>
+nnoremap <leader>fb :Telescope buffers<CR>
 
 " Close panes with q
 nnoremap <leader>q :wincmd q<CR>
@@ -101,10 +97,7 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 " Use tab for autocomplete accept
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-Y>" : "\<TAB>"
-" Enables j/k navigation in automcomplete
-" inoremap <expr> <C-J> pumvisible() ? "\<C-N>" : "j"
-" inoremap <expr> <C-K> pumvisible() ? "\<C-P>" : "k"
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-Y>" : "\<TAB>"<CR>
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -123,7 +116,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 let g:NERDTreeIgnore = ['node_modules']
-let NERDTreeStatusLine='NERDTree'
+let g:NERDTreeStatusLine='NERDTree'
 let g:ale_disable_lsp = 1
 
 " Set directory color in NerdTree
@@ -191,4 +184,16 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
+EOF
+
+" Treesitter setup
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",
+  ignore_install = { "haskell" },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  }
+}
 EOF

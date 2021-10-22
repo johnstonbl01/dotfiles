@@ -2,7 +2,12 @@ export LC_ALL="en_US.UTF-8"
 export ZSH="$HOME/.oh-my-zsh"
 export NVM_DIR="$HOME/.nvm"
 export NVM_COMPLETION=true
-export DEFAULT_AVD='Pixel_2_API_26'
+export DEFAULT_AVD='Pixel 4 API 29'
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # use ripgrep inside vim for fzf
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
@@ -76,7 +81,7 @@ alias ku="kubectl"
 alias rn="react-native"
 alias rproxy='adb reverse tcp:9090 tcp:9090'
 alias aem="LaunchAvdForeground"
-alias rnlogcat='adb logcat *:S ReactNative:V ReactNativeJS:V'
+alias rnlogcat='adb logcat -s ReactNative:V ReactNativeJS:V'
 alias gco='git checkout'
 alias gpr='git push -u origin HEAD'
 alias gpo='git pull origin HEAD'
