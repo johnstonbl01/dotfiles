@@ -124,6 +124,7 @@ let g:NERDTreeDirArrowExpandable = ''
 let g:NERDTreeDirArrowCollapsible = ''
 let g:NERDTreeIgnore = ['node_modules']
 let NERDTreeStatusLine='NERDTree'
+let g:ale_disable_lsp = 1
 
 " Set directory color in NerdTree
 highlight Directory guifg=#CCCCCC
