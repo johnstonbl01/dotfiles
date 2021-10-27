@@ -45,6 +45,20 @@ call plug#end()
 " Support for jsonc
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+" Show CoC Tooltip If Available
+function! ShowDocIfNoDiagnostic(timer_id)
+  if (coc#float#has_float() == 0 && CocHasProvider('hover') == 1)
+    silent call CocActionAsync('doHover')
+  endif
+endfunction
+
+function! s:show_hover_doc()
+  call timer_start(500, 'ShowDocIfNoDiagnostic')
+endfunction
+
+autocmd CursorHoldI * :call <SID>show_hover_doc()
+autocmd CursorHold * :call <SID>show_hover_doc()
+
 set scrolloff=8
 set nowrap
 set number
@@ -98,6 +112,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " Use tab for autocomplete accept
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-Y>" : "\<TAB>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -107,6 +122,16 @@ nnoremap <leader>a :NERDTreeToggle<CR>
 
 " Reload VIMRC
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" CoC GoTo navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+
+" CoC Hover
+nnoremap <silent> K :call CocAction('doHover')<CR>
+
+" CoC Diagnostics
+nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
 
 " ======================================
 " Plugin Settings
@@ -172,15 +197,20 @@ let g:go_fmt_command = "goimports"
 " Telescope Setup
 lua <<EOF
 require('telescope').setup {
+  pickers = {
+    find_files = {
+      -- Include hidden files except for .git
+      find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden' },
+    },
+  },
   extensions = {
     fzf = {
       fuzzy = true,                    
       override_generic_sorter = true,  
       override_file_sorter = true,     
       case_mode = "smart_case",        
-                                       
-    }
-  }
+    },
+  },
 }
 
 require('telescope').load_extension('fzf')
