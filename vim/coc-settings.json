@@ -6,6 +6,5 @@
   "prettier.semi": true,
   "tsserver.enableJavascript": false,
   "diagnostic.displayByAle": true,
-  "signature.target": "echo",
-  "hover.target": "echo"
+  "signature.target": "echo"
 }
