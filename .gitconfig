@@ -1,3 +1,5 @@
 [user]
   name = Blake Johnston
   email = johnstonbl01@gmail.com
+[pull]
+	ff = true
