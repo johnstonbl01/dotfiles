@@ -3,6 +3,7 @@
 " ======================================
 call plug#begin("~/.vim/plugged")
 Plug 'tpope/vim-commentary'
+Plug 'mattn/emmet-vim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -16,6 +17,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'neoclide/coc.nvim', { 'branch':'release' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'windwp/nvim-ts-autotag'
 let g:coc_global_extensions = ['coc-tsserver',
   \ 'coc-python',
   \ 'coc-pydocstring',
@@ -27,7 +29,8 @@ let g:coc_global_extensions = ['coc-tsserver',
   \ 'coc-sql',
   \ 'coc-prettier',
   \ 'coc-prisma',
-  \ 'coc-yaml']
+  \ 'coc-yaml',
+  \ 'coc-emmet' ]
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
@@ -233,6 +236,9 @@ EOF
 " Treesitter setup
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
+  autotag = {
+    enable = true
+  },
   ensure_installed = "all",
   ignore_install = { "haskell" },
   highlight = {
