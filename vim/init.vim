@@ -15,23 +15,22 @@ Plug 'preservim/nerdtree'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'neoclide/coc.nvim', { 'branch':'release' }
-Plug 'editorconfig/editorconfig-vim'
-Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'windwp/nvim-ts-autotag'
 let g:coc_global_extensions = ['coc-tsserver',
   \ 'coc-python',
   \ 'coc-pydocstring',
   \ 'coc-json',
   \ 'coc-html-css-support',
   \ 'coc-css',
-  \ 'coc-go',
   \ 'coc-git',
+  \ 'coc-go',
   \ 'coc-sql',
   \ 'coc-prettier',
   \ 'coc-prisma',
   \ 'coc-yaml',
   \ 'coc-emmet' ]
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'editorconfig/editorconfig-vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'windwp/nvim-ts-autotag'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'javascriptreact', 'typescriptreact'] }
@@ -47,6 +46,8 @@ call plug#end()
 " ======================================
 " Support for jsonc
 autocmd FileType json syntax match Comment +\/\/.\+$+
+
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -208,9 +209,6 @@ let g:lightline#ale#indicator_infos = "\uf129"
 let g:lightline#ale#indicator_warnings = "\uf071"
 let g:lightline#ale#indicator_errors = "\uf05e"
 let g:lightline#ale#indicator_ok = "\uf00c"
-
-" Use goimports for formatting
-let g:go_fmt_command = "goimports"
 
 " Telescope Setup
 lua <<EOF
