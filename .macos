@@ -42,7 +42,7 @@ echo "brew installing stuff"
 # ripgrep: better grep
 brew install git tig tree ffmpeg zsh neovim autojump \
 jq terraform ngrok go readline ripgrep zsh-autosuggestions \
-fzf bat python
+fzf bat python fd
 
 echo "installing apps with brew cask"
 brew install --cask alfred google-chrome firefox divvy \
