@@ -6,6 +6,7 @@ Plug 'tpope/vim-commentary'
 Plug 'mattn/emmet-vim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lua/plenary.nvim'
+Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'itchyny/lightline.vim'
 Plug 'haishanh/night-owl.vim'
@@ -100,6 +101,13 @@ nnoremap <leader>ws :wincmd s<CR>
 nnoremap <leader>wv :wincmd v<CR>
 nnoremap <leader>wr :wincmd r<CR>
 nnoremap <leader>wx :wincmd x<CR>
+
+" Harpoon conifg keybindings
+nnoremap <leader>hm :lua require("harpoon.ui").toggle_quick_menu()<CR>
+nnoremap <leader>ha :lua require("harpoon.mark").add_file()<CR>
+nnoremap <leader>h1 :lua require("harpoon.ui").nav_file(1)<CR>
+nnoremap <leader>h2 :lua require("harpoon.ui").nav_file(2)<CR>
+nnoremap <leader>h3 :lua require("harpoon.ui").nav_file(3)<CR>
 
 " Enables pane navigation with h/j/k/l
 nmap <silent> <c-k> :wincmd k<CR>
