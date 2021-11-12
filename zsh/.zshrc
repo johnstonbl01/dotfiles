@@ -31,7 +31,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # zsh plugins
 plugins=(
   git
-  osx
+  macos
   jsontools
   npm
   zsh-autosuggestions

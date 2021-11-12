@@ -2,33 +2,25 @@
 " Plugins
 " ======================================
 call plug#begin("~/.vim/plugged")
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'folke/trouble.nvim'
+Plug 'glepnir/dashboard-nvim'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'tpope/vim-commentary'
-Plug 'mattn/emmet-vim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'itchyny/lightline.vim'
-Plug 'haishanh/night-owl.vim'
-Plug 'pantharshit00/vim-prisma'
+Plug 'folke/lsp-colors.nvim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdtree'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'neoclide/coc.nvim', { 'branch':'release' }
-let g:coc_global_extensions = ['coc-tsserver',
-  \ 'coc-python',
-  \ 'coc-pydocstring',
-  \ 'coc-json',
-  \ 'coc-html-css-support',
-  \ 'coc-css',
-  \ 'coc-git',
-  \ 'coc-go',
-  \ 'coc-sql',
-  \ 'coc-prettier',
-  \ 'coc-prisma',
-  \ 'coc-yaml',
-  \ 'coc-emmet' ]
 Plug 'editorconfig/editorconfig-vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'windwp/nvim-ts-autotag'
@@ -36,10 +28,10 @@ Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'javascriptreact', 'typescriptreact'] }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'dense-analysis/ale'
-Plug 'maximbaz/lightline-ale'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'karb94/neoscroll.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 " ======================================
@@ -47,10 +39,6 @@ call plug#end()
 " ======================================
 " Support for jsonc
 autocmd FileType json syntax match Comment +\/\/.\+$+
-
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 set scrolloff=8
 set nowrap
@@ -66,6 +54,10 @@ set updatetime=300
 set shortmess+=c
 set signcolumn=yes
 set mouse=a
+set nu
+set noswapfile
+set incsearch
+set completeopt=menu,menuone,noselect
 
 " Open new split panes to right and below
 set splitright
@@ -81,7 +73,6 @@ let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
 
 syntax enable
 colorscheme tokyonight
-"colorscheme night-owl
 
 " ======================================
 " Key Mapping
@@ -115,108 +106,58 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-" Use tab for autocomplete accept
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <c-space> coc#refresh()
+" nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+" nnoremap <silent> <leader>ca :Lspsaga code_action<CR>
+" nnoremap <silent>K :Lspsaga hover_doc<CR>
+" nnoremap <silent> gd :Lspsaga preview_definition<CR>
+" nnoremap <silent> gs :Lspsaga signature_help<CR>
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Toggle NerdTree
-nnoremap <leader>a :NERDTreeToggle<CR>
-
-" Reload VIMRC
-nnoremap <leader>sv :source $MYVIMRC<CR>
-
-" CoC GoTo navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-
-" CoC Hover
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" CoC Diagnostics
-nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+nnoremap <leader>a :NvimTreeToggle<CR>
 
 " ======================================
 " Plugin Settings
 " ======================================
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
-let g:NERDTreeIgnore = ['node_modules']
-let g:NERDTreeStatusLine='NERDTree'
-let g:ale_disable_lsp = 1
+" Set directory color in NvimTree
+highlight NvimTreeFolderIcon guifg=#CCCCCC
 
-" Set directory color in NerdTree
-highlight Directory guifg=#CCCCCC
-highlight File guifg=#777FA7
+let g:dashboard_default_executive = 'telescope'
 
-" let g:lightline = { 'colorscheme': 'nightowl' }
-let g:lightline = { 'colorscheme': 'tokyonight' }
+let g:nvim_tree_gitignore = 1 
+let g:nvim_tree_quit_on_open = 1 
+let g:nvim_tree_indent_markers = 1 
+let g:nvim_tree_git_hl = 1
+
+let g:nvim_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★",
+    \   'deleted': "",
+    \   'ignored': "◌"
+    \   },
+    \ 'folder': {
+    \   'arrow_open': "",
+    \   'arrow_closed': "",
+    \   'default': "",
+    \   'open': "",
+    \   'empty': "",
+    \   'empty_open': "",
+    \   'symlink': "",
+    \   'symlink_open': "",
+    \   }
+    \ }
 
 " Use prettier file in project instead of default
 let g:prettier#autoformat_config_present = 1
 let g:prettier#config#config_precedence = 'prefer-file'
 
-" Ale settings
-let g:ale_fixers = {
- \ 'javascript': ['eslint']
- \ }
- 
-let g:ale_sign_error = "\uf05e"
-let g:ale_sign_warning = "\uf071"
-
-let g:lightline.component_expand = {
-  \  'linter_checking': 'lightline#ale#checking',
-  \  'linter_infos': 'lightline#ale#infos',
-  \  'linter_warnings': 'lightline#ale#warnings',
-  \  'linter_errors': 'lightline#ale#errors',
-  \  'linter_ok': 'lightline#ale#ok',
-  \ }
-let g:lightline.component_type = {
-  \     'linter_checking': 'right',
-  \     'linter_infos': 'right',
-  \     'linter_warnings': 'warning',
-  \     'linter_errors': 'error',
-  \     'linter_ok': 'right',
-  \ }
-
-let g:lightline.active = { 'right': [[ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ]] }
-let g:lightline.active = {
-  \ 'right': [ [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok' ],
-  \            [ 'lineinfo' ],
-  \            [ 'percent' ],
-  \            [ 'fileformat', 'fileencoding', 'filetype'] ] }
-
-let g:lightline#ale#indicator_checking = "\uf110"
-let g:lightline#ale#indicator_infos = "\uf129"
-let g:lightline#ale#indicator_warnings = "\uf071"
-let g:lightline#ale#indicator_errors = "\uf05e"
-let g:lightline#ale#indicator_ok = "\uf00c"
+let g:vsnip_filetypes = {}
+let g:vsnip_filetypes.javascriptreact = ['javascript']
+let g:vsnip_filetypes.typescriptreact = ['typescript']
 
 " Telescope Setup
 lua <<EOF
@@ -238,10 +179,7 @@ require('telescope').setup {
 }
 
 require('telescope').load_extension('fzf')
-EOF
 
-" Treesitter setup
-lua <<EOF
 require'nvim-treesitter.configs'.setup {
   autotag = {
     enable = true
@@ -253,4 +191,125 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   }
 }
+
+require'nvim-tree'.setup {
+  disable_netrw       = true,
+  hijack_netrw        = true,
+  open_on_setup       = false,
+  ignore_ft_on_setup  = {},
+  auto_close          = false,
+  open_on_tab         = false,
+  hijack_cursor       = false,
+  update_cwd          = false,
+  update_to_buf_dir   = {
+    enable = true,
+    auto_open = true,
+  },
+  diagnostics = {
+    enable = false,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
+  update_focused_file = {
+    enable      = false,
+    update_cwd  = false,
+    ignore_list = {}
+  },
+  system_open = {
+    cmd  = nil,
+    args = {}
+  },
+  filters = {
+    dotfiles = false,
+    custom = {}
+  },
+  view = {
+    width = 30,
+    height = 30,
+    hide_root_folder = false,
+    side = 'left',
+    auto_resize = false,
+    mappings = {
+      custom_only = false,
+      list = {}
+    }
+  }
+}
+
+local cmp = require'cmp'
+
+cmp.setup({
+snippet = {
+  expand = function(args)
+  vim.fn["vsnip#anonymous"](args.body)
+end,
+},
+    mapping = {
+      ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+      }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+  sources = cmp.config.sources({
+  { name = 'nvim_lsp' },
+  { name = 'vsnip' }
+  }, {
+  { name = 'buffer' },
+  })
+})
+
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local nvim_lsp = require('lspconfig')
+
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  local opts = { noremap=true, silent=true }
+
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+end
+
+local servers = { 'html', 'cssls', 'tsserver', 'gopls', 'graphql', 'tailwindcss', 'yamlls', 'terraformls' }
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+  }
+end
+
+require'trouble'.setup {}
+require'neoscroll'.setup()
+require'colorizer'.setup()
+require'gitsigns'.setup()
+
+require('lualine').setup {
+  options = {
+    theme = 'tokyonight'
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff',
+                  {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+    lualine_c = { {'filename', file_status = true, path = 1 } },
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+}
 EOF
+
