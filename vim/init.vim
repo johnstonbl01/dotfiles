@@ -30,7 +30,6 @@ Plug 'prettier/vim-prettier', {
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
-Plug 'karb94/neoscroll.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
@@ -293,7 +292,6 @@ for _, lsp in ipairs(servers) do
 end
 
 require'trouble'.setup {}
-require'neoscroll'.setup()
 require'colorizer'.setup()
 require'gitsigns'.setup()
 
