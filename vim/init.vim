@@ -20,6 +20,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'folke/lsp-colors.nvim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
@@ -116,6 +117,8 @@ nnoremap <leader>a :NvimTreeToggle<CR>
 " ======================================
 " Plugin Settings
 " ======================================
+let g:go_fmt_command = "goimports"
+
 " Set directory color in NvimTree
 highlight NvimTreeFolderIcon guifg=#CCCCCC
 
@@ -280,7 +283,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 end
 
-local servers = { 'html', 'cssls', 'tsserver', 'gopls', 'graphql', 'tailwindcss', 'yamlls', 'terraformls' }
+local servers = { 'html', 'cssls', 'tsserver', 'graphql', 'tailwindcss', 'yamlls', 'terraformls' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     capabilities = capabilities,
