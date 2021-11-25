@@ -6,11 +6,13 @@ export DEFAULT_AVD='Pixel 4 API 29'
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
+export GOBIN="${GOPATH}/bin"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$HOME/.cargo/bin
 export BAT_THEME=TwoDark
 
 # use ripgrep inside vim for fzf
