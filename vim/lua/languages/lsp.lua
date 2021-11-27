@@ -12,7 +12,7 @@ function M.on_attach(client, bufnr)
   local opts = { noremap = true, silent = true }
 
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

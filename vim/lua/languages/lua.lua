@@ -1,16 +1,16 @@
 local lsp = require('languages.lsp')
 local api = vim.api
+local fn = vim.fn
 local M = {}
 
-local sumneko_binary = '/usr/local/bin/lua-language-server'
-local sumneko_main = '/usr/local/bin/main.lua'
+local sumneko_binary = os.getenv("HOME") .. "/.langservers/lua-language-server/bin/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 M.lsp = {
-    cmd = {sumneko_binary, "-E", sumneko_main};
+    cmd = {sumneko_binary};
     settings = {
         Lua = {
             runtime = {
