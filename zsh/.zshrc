@@ -21,6 +21,7 @@ export BAT_THEME=TwoDark
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Set default user
 # Will show server named if SSH'd
@@ -110,4 +111,3 @@ function gcmb {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey '^ ' autosuggest-accept
-

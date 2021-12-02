@@ -1,5 +1,3 @@
-local g = vim.g
-
 require('plugins')
 require('options')
 require('key-mappings')
@@ -18,6 +16,3 @@ require('setup.neoformat')
 
 -- Theme setup
 vim.cmd[[colorscheme tokyonight]]
-
-
-
