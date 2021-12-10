@@ -81,6 +81,7 @@ type Taskr struct {
 	DotfilesDir     string
 	NeoVimConfigDir string
 	Errors          []string
+	startTime       time.Time
 }
 
 func New(debug bool) *Taskr {
@@ -116,6 +117,7 @@ func New(debug bool) *Taskr {
 		DotfilesDir:     dotfilesDir,
 		NeoVimConfigDir: neovimConfigDir,
 		Errors:          []string{},
+		startTime:       time.Now(),
 	}
 
 	return t
@@ -179,6 +181,7 @@ func (t *Taskr) Run(taskList []Task) {
 	}
 
 	t.Spinner.Stop()
+	fmt.Println(fmt.Sprintf("All tasks completed in %s", time.Since(t.startTime)))
 
 	fmt.Println("=================  Errors  =================")
 
