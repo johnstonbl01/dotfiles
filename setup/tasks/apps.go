@@ -2,14 +2,13 @@ package tasks
 
 import (
 	"fmt"
-	"log"
 	"os/exec"
 	"setup/taskr"
 )
 
 func apps(t *taskr.Task) {
 	t.SubTasks = []taskr.Task{
-		taskr.NewTask("", false, brewCasks),
+		taskr.NewTask("", false, "[apps] ", brewCasks),
 	}
 }
 
@@ -33,7 +32,7 @@ func brewCasks(t *taskr.Task) {
 		"bartender",
 	}
 
-	t.Fn = func(tskr *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		for _, app := range apps {
 			tskr.Spinner.Message(cyan(app))
 			brewInstallApp := fmt.Sprintf("brew install --cask %s --quiet", app)
@@ -41,11 +40,9 @@ func brewCasks(t *taskr.Task) {
 			installCmd := exec.Command(SHELL, "-c", brewInstallApp)
 
 			if _, err := installCmd.CombinedOutput(); err != nil {
-				log.Print(err)
-				// handle err
+				prefix := fmt.Sprintf("%s%s", t.ErrContext, app)
+				tskr.HandleTaskError(prefix, err)
 			}
 		}
-
-		return nil
 	}
 }

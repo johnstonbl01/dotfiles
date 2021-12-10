@@ -1,35 +1,35 @@
 package tasks
 
 import (
+	"errors"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"setup/taskr"
 	"time"
 )
 
-const HOMEBREW_URL = "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+const (
+	HOMEBREW_URL = "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+)
 
 func prereqs(t *taskr.Task) {
 	t.SubTasks = []taskr.Task{
-		taskr.NewTask("Create temp dir", false, createTempDir),
-		taskr.NewTask("Install Homebrew", true, installHomebrew),
-		taskr.NewTask("Create language server dir", true, createLangServersDir),
-		taskr.NewTask("Install git", true, installGit),
-		taskr.NewTask("Setup SSH config", true, createSSHConfig),
-		taskr.NewTask("Generate public key", true, generatePubKey),
-		taskr.NewTask("Copy public key", false, copyPubKey),
+		taskr.NewTask("Create temp dir", false, "[prereqs] ", createTempDir),
+		taskr.NewTask("Install Homebrew", true, "[prereqs] ", installHomebrew),
+		taskr.NewTask("Create language server dir", true, "[prereqs] ", createLangServersDir),
+		taskr.NewTask("Install git", true, "[prereqs] ", installGit),
+		taskr.NewTask("Setup SSH config", true, "[prereqs] ", createSSHConfig),
+		taskr.NewTask("Generate public key", true, "[prereqs] ", generatePubKey),
+		taskr.NewTask("Copy public key", false, "[prereqs] ", copyPubKey),
 	}
 }
 
 func copyPubKey(t *taskr.Task) {
-	t.Fn = func(tskr *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		var input string
 
-		homeDir, _ := os.UserHomeDir()
-		sshDir := fmt.Sprintf("%s/.ssh", homeDir)
-		copyCmd := fmt.Sprintf("pbcopy < %s/id_rsa.pub", sshDir)
+		copyCmd := fmt.Sprintf("pbcopy < %s/id_rsa.pub", tskr.SSHDir)
 
 		pbCopy := exec.Command(SHELL, "-c", copyCmd)
 		pbCopy.Run()
@@ -45,124 +45,91 @@ func copyPubKey(t *taskr.Task) {
 		tskr.Spinner.Unpause()
 
 		time.Sleep(2 * time.Second)
-
-		return nil
 	}
 }
 
 func createSSHConfig(t *taskr.Task) {
-	t.Fn = func(_ *taskr.Taskr) error {
-		homeDir, _ := os.UserHomeDir()
-		sshDir := fmt.Sprintf("%s/.ssh", homeDir)
-		sshConfig := fmt.Sprintf("%s/config", sshDir)
+	t.Fn = func(tskr *taskr.Taskr) {
+		sshConfig := fmt.Sprintf("%s/config", tskr.SSHDir)
 		sshConfigContent := []byte("Host *\n AddKeysToAgent yes\n UseKeychain yes \n IdentityFile ~/.ssh/id_rsa")
 
-		if err := createDir(sshDir); err != nil {
-			log.Print(err)
-			// handle err
-
-			return err
+		if err := createDir(tskr.SSHDir); err != nil {
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
 
 		if err := os.WriteFile(sshConfig, sshConfigContent, 0644); err != nil {
-			log.Print(err)
-			// handle err
-
-			return err
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
-
-		return nil
 	}
-
 }
 
 func generatePubKey(t *taskr.Task) {
-	t.Fn = func(tskr *taskr.Taskr) error {
-		homeDir, _ := os.UserHomeDir()
-		sshDir := fmt.Sprintf("%s/.ssh", homeDir)
-
+	t.Fn = func(tskr *taskr.Taskr) {
 		// TODO: Migrate this to go code eventually
-		keyGenCmd := fmt.Sprintf("ssh-keygen -t rsa -b 4096 -C \"%s\" -N '' -f \"%s/id_rsa\"", tskr.UserEmail, sshDir)
+		keyGenCmd := fmt.Sprintf("ssh-keygen -t rsa -b 4096 -C \"%s\" -N '' -f \"%s/id_rsa\"", tskr.UserEmail, tskr.SSHDir)
 		evalSSHAgent := exec.Command(SHELL, "-c", "eval \"$(ssh-agent -s)\"")
 
 		if _, err := shellCommand(keyGenCmd, false); err != nil {
-			log.Print(err)
-			// handle err
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
 
 		sshAgentOutput, err := evalSSHAgent.CombinedOutput()
 		if err != nil {
-			log.Print(err)
-			// handle err
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
 
 		if !isValidProcessId(string(sshAgentOutput)) {
-			log.Println("No valid process id for ssh agent")
-			// hanlde err
+			err := errors.New("No valid process id for ssh agent")
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
-
-		return nil
 	}
 }
 
 func installGit(t *taskr.Task) {
-	t.Fn = func(_ *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		if _, err := shellCommand("brew install git", false); err != nil {
-			log.Print(err)
-			// handle err
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
 		}
-
-		return nil
 	}
 }
 
 func createTempDir(t *taskr.Task) {
-	t.Fn = func(_ *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		time.Sleep(500 * time.Millisecond)
 
-		if err := createDir(TEMP_DIR); err != nil {
-			log.Print(err)
-			// handle err
-
-			return err
+		if err := createDir(tskr.TempDir); err != nil {
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
 		}
-
-		return nil
 	}
 }
 
 func createLangServersDir(t *taskr.Task) {
-	homeDir, _ := os.UserHomeDir()
-	langServerLoc := fmt.Sprintf("%s/.langservers", homeDir)
-
-	t.Fn = func(_ *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		time.Sleep(500 * time.Millisecond)
 
-		if err := createDir(langServerLoc); err != nil {
-			log.Print(err)
-			// handle err
-
-			return err
+		if err := createDir(tskr.LangServerDir); err != nil {
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
 		}
-
-		return nil
 	}
 }
 
 func installHomebrew(t *taskr.Task) {
-	fileName := fmt.Sprintf("%s/install-brew.sh", TEMP_DIR)
+	t.Fn = func(tskr *taskr.Taskr) {
+		fileName := fmt.Sprintf("%s/install-brew.sh", tskr.TempDir)
 
-	t.Fn = func(_ *taskr.Taskr) error {
 		if err := downloadFile(fileName, HOMEBREW_URL); err != nil {
-			log.Print(err)
-			// handle err
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
 
 		if _, err := shellCommand(fileName, false); err != nil {
-			log.Print(err)
-			// handle err
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
 		}
-
-		return nil
 	}
 }

@@ -3,6 +3,7 @@ package taskr
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/fatih/color"
@@ -10,23 +11,27 @@ import (
 )
 
 var cyan = color.New(color.FgHiCyan).SprintFunc()
+var red = color.New(color.FgHiRed).SprintFunc()
 
-type TaskFn func(tskr *Taskr) error
+var finalTodos = []string{}
 
-const (
-	GROUP = "group"
-	TASK  = "task"
-)
+type TaskFn func(tskr *Taskr)
 
 type Task struct {
-	Title    string
-	Skip     bool
-	SubTasks []Task
-	Fn       TaskFn
+	Title      string
+	Skip       bool
+	SubTasks   []Task
+	Fn         TaskFn
+	ErrContext string
 }
 
-func NewTask(title string, skip bool, options ...func(*Task)) Task {
-	task := Task{Title: title, Skip: skip, SubTasks: []Task{}}
+func NewTask(title string, skip bool, errContext string, options ...func(*Task)) Task {
+	task := Task{
+		Title:      title,
+		Skip:       skip,
+		SubTasks:   []Task{},
+		ErrContext: errContext,
+	}
 
 	for _, option := range options {
 		option(&task)
@@ -35,10 +40,23 @@ func NewTask(title string, skip bool, options ...func(*Task)) Task {
 	return task
 }
 
+func (t *Task) ErrorPrefix() string {
+	return fmt.Sprintf("%s%s", t.ErrContext, t.Title)
+}
+
 type Taskr struct {
-	Debug     bool
-	Spinner   *yacspin.Spinner
-	UserEmail string
+	Debug           bool
+	Spinner         *yacspin.Spinner
+	UserEmail       string
+	HomeDir         string
+	SSHDir          string
+	LangServerDir   string
+	TempDir         string
+	DevDir          string
+	ZSHDir          string
+	DotfilesDir     string
+	NeoVimConfigDir string
+	Errors          []string
 }
 
 func New(debug bool) *Taskr {
@@ -53,13 +71,44 @@ func New(debug bool) *Taskr {
 
 	s, _ := yacspin.New(scfg)
 
-	t := &Taskr{Spinner: s, Debug: debug}
+	homeDir, _ := os.UserHomeDir()
+	sshDir := fmt.Sprintf("%s/.ssh", homeDir)
+	langServerDir := fmt.Sprintf("%s/.langservers", homeDir)
+	tempDir := fmt.Sprintf("%s/temp", homeDir)
+	devDir := fmt.Sprintf("%s/dev", homeDir)
+	zshDir := fmt.Sprintf("%s/.oh-my-zsh", homeDir)
+	dotfilesDir := fmt.Sprintf("%s/dotfiles", devDir)
+	neovimConfigDir := fmt.Sprintf("%s/.config/nvim", homeDir)
+
+	t := &Taskr{
+		Spinner:         s,
+		Debug:           debug,
+		HomeDir:         homeDir,
+		SSHDir:          sshDir,
+		LangServerDir:   langServerDir,
+		TempDir:         tempDir,
+		DevDir:          devDir,
+		ZSHDir:          zshDir,
+		DotfilesDir:     dotfilesDir,
+		NeoVimConfigDir: neovimConfigDir,
+		Errors:          []string{},
+	}
 
 	return t
 }
 
 func (t *Taskr) SetEmail(email string) {
 	t.UserEmail = email
+}
+
+func (t *Taskr) HandleTaskError(errPrefix string, err error) {
+	if t.Debug {
+		log.Print(err)
+	}
+
+	errMsg := fmt.Sprintf("%s: %s", errPrefix, red(err.Error()))
+
+	t.Errors = append(t.Errors, errMsg)
 }
 
 func (t *Taskr) execTask(tsk Task) {
@@ -73,10 +122,7 @@ func (t *Taskr) execTask(tsk Task) {
 		t.Spinner.Suffix(fmt.Sprintf(" %s", tsk.Title))
 	}
 
-	if err := tsk.Fn(t); err != nil {
-		log.Print(err)
-		// handle err
-	}
+	tsk.Fn(t)
 }
 
 func (t *Taskr) runAllTasks(tasks []Task) {
@@ -107,5 +153,14 @@ func (t *Taskr) Run(taskList []Task) {
 
 		t.processTask(tsk)
 	}
+
 	t.Spinner.Stop()
+
+	fmt.Println("=================  Errors  =================")
+
+	for _, err := range t.Errors {
+		fmt.Println(err)
+	}
+
+	// print final msg
 }

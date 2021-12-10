@@ -2,15 +2,14 @@ package tasks
 
 import (
 	"fmt"
-	"log"
 	"os/exec"
 	"setup/taskr"
 )
 
 func setupOs(t *taskr.Task) {
 	t.SubTasks = []taskr.Task{
-		taskr.NewTask("", false, runOsCommands),
-		taskr.NewTask("Close affected OS apps", false, closeOsApps),
+		taskr.NewTask("", false, "[os] ", runOsCommands),
+		taskr.NewTask("Close affected OS apps", false, "[os] ", closeOsApps),
 	}
 }
 
@@ -180,20 +179,17 @@ func runOsCommands(t *taskr.Task) {
 		{"Disable chrome backswipe on trackpads", "defaults write com.google.Chrome.canary AppleEnableSwipeNavigateWithScrolls -bool false"},
 	}
 
-	t.Fn = func(tskr *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		for _, appleCmd := range cmds {
 			title := appleCmd[0]
 			tskr.Spinner.Message(cyan(title))
 			cmd := exec.Command(SHELL, "-c", appleCmd[1])
 
 			if _, err := cmd.CombinedOutput(); err != nil {
-				log.Print(err)
-
-				// handle err
+				prefix := fmt.Sprintf("%s%s", t.ErrContext, title)
+				tskr.HandleTaskError(prefix, err)
 			}
-
 		}
-		return nil
 	}
 }
 
@@ -214,18 +210,17 @@ func closeOsApps(t *taskr.Task) {
 		"iCal",
 	}
 
-	t.Fn = func(_ *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		for _, appName := range apps {
 			closeCmd := fmt.Sprintf("killall \"%s\" &> /dev/null", appName)
 			cmd := exec.Command(SHELL, "-c", closeCmd)
 
 			if _, err := cmd.CombinedOutput(); err != nil {
-				log.Print(err)
+				appText := fmt.Sprintf("closing %s", appName)
+				prefix := fmt.Sprintf("%s%s", t.ErrContext, appText)
 
-				// handle err
+				tskr.HandleTaskError(prefix, err)
 			}
 		}
-
-		return nil
 	}
 }

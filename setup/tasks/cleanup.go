@@ -1,8 +1,6 @@
 package tasks
 
 import (
-	"fmt"
-	"log"
 	"os"
 	"setup/taskr"
 	"time"
@@ -10,26 +8,16 @@ import (
 
 func cleanup(t *taskr.Task) {
 	t.SubTasks = []taskr.Task{
-		taskr.NewTask("Remove temp dir", false, removeTempDir),
+		taskr.NewTask("Remove temp dir", false, "[cleanup] ", removeTempDir),
 	}
 }
 
 func removeTempDir(t *taskr.Task) {
-	t.Fn = func(_ *taskr.Taskr) error {
+	t.Fn = func(tskr *taskr.Taskr) {
 		time.Sleep(500 * time.Millisecond)
 
-		if err := os.RemoveAll(TEMP_DIR); err != nil {
-			log.Print(err)
-			// handle err
+		if err := os.RemoveAll(tskr.TempDir); err != nil {
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
 		}
-
-		return nil
-	}
-}
-
-func finalizeMessage(t *taskr.Task) {
-	t.Fn = func(_ *taskr.Taskr) error {
-		fmt.Println("All done 🎉")
-		return nil
 	}
 }
