@@ -12,8 +12,32 @@ import (
 
 var cyan = color.New(color.FgHiCyan).SprintFunc()
 var red = color.New(color.FgHiRed).SprintFunc()
+var yellow = color.New(color.FgHiYellow).SprintFunc()
 
-var finalTodos = []string{}
+var finalTodos = []string{
+	"All done! 🎉",
+	"Next steps:",
+	"",
+	yellow("Install App Store apps"),
+	"    [] Run dog",
+	"    [] BetterSnapTool",
+	"    [] Divvy",
+	"    [] Tapes",
+	"    [] Run dog",
+	"    [] Todoist",
+	"    [] Fantastical",
+	"    [] Todoist",
+	"    [] BarRemote",
+	"",
+	yellow("Download apps"),
+	"    [] Sip (https://sipapp.io/)",
+	"",
+	yellow("Env setup"),
+	"    [] npm login",
+	"    [] import iterm profile",
+	"    [] install iterm themes",
+	"    [] install nvim plugins (vim --headless +PackerInstall +qa)",
+}
 
 type TaskFn func(tskr *Taskr)
 
@@ -162,5 +186,7 @@ func (t *Taskr) Run(taskList []Task) {
 		fmt.Println(err)
 	}
 
-	// print final msg
+	for _, txt := range finalTodos {
+		fmt.Println(txt)
+	}
 }
