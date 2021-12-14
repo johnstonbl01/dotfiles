@@ -1,3 +1,3 @@
 local g = vim.g
 
-dashboard_default_executive = 'telescope'
+g.dashboard_default_executive = 'telescope'
