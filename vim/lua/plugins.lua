@@ -13,7 +13,7 @@ return require('packer').startup(function()
 
   -- File management
   use 'nvim-lua/plenary.nvim'
-  use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
+  use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
   use 'ThePrimeagen/harpoon'
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use 'nvim-telescope/telescope.nvim'
@@ -43,12 +43,14 @@ return require('packer').startup(function()
   use 'editorconfig/editorconfig-vim'
 
   -- Lualine
-  use { 'nvim-lualine/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons', opt = true} }
+  use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
 
   -- Git
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
   -- Misc
-  use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
+  use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } }
   use 'glepnir/dashboard-nvim'
+  use 'ThePrimeagen/vim-be-good'
+  use 'lewis6991/impatient.nvim'
 end)

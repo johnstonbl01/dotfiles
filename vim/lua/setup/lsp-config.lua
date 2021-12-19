@@ -1,5 +1,6 @@
 local lsp = require('lspconfig')
 
+lsp.bashls.setup(require('languages.bash').lsp)
 lsp.cssls.setup(require('languages.css').lsp)
 lsp.efm.setup(require('languages.efm').lsp)
 lsp.gopls.setup(require('languages.go').lsp)

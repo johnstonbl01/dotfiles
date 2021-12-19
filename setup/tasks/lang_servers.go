@@ -35,6 +35,7 @@ func installNPMLangServers(t *taskr.Task) {
 		"vscode-langservers-extracted",
 		"yaml-language-server",
 		"pyright",
+		"bash-language-server",
 	}
 
 	t.Fn = func(tskr *taskr.Taskr) {

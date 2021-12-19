@@ -10,6 +10,8 @@ map('n', '<Leader>a', [[:NvimTreeToggle<CR>]], { noremap = true, silent = true }
 map('n', '<Leader>ff', [[:Telescope find_files<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>fg', [[:Telescope live_grep<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>fb', [[:Telescope buffers<CR>]], { noremap = true, silent = true })
+map('n', '<Leader>fd', [[<cmd>lua require('setup.telescope').search_dotfiles()<CR>]], { noremap = true, silent = true })
+map('n', '<Leader>fr', [[:Telescope git_branches<CR>]], { noremap = true, silent = true })
 
 -- Pane Split Shortucts
 map('n', '<Leader>q', [[:wincmd q<CR>]], { noremap = true })

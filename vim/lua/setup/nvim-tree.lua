@@ -1,7 +1,6 @@
 local g = vim.g
 local tree = require('nvim-tree')
 
-g.nvim_tree_gitignore = 1
 g.nvim_tree_quit_on_open = 1
 g.nvim_tree_indent_markers = 1
 g.nvim_tree_git_hl = 1
@@ -52,9 +51,14 @@ tree.setup({
       error = "",
     }
   },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
   update_focused_file = {
-    enable      = false,
-    update_cwd  = false,
+    enable      = true,
+    update_cwd  = true,
     ignore_list = {}
   },
   system_open = {

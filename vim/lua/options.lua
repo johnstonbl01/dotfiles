@@ -23,6 +23,10 @@ option.termguicolors = true
 option.number = true
 option.relativenumber = true
 option.signcolumn = 'yes'
+option.ignorecase = true
+option.smartcase = true
+option.clipboard = 'unnamedplus'
+option.confirm = true
 
 -- Window
 window.wrap = false

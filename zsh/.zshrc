@@ -99,6 +99,9 @@ alias vim="nvim"
 alias cat="bat"
 alias nr="npm run"
 alias econf="cp ~/dev/dotfiles/project-files/.editorconfig ."
+alias tn="tmux new -A -s"
+alias ta="tmux a -t"
+alias tk="tmux kill-session -t"
 
 # Removes merged git branches
 function gcmb {
@@ -110,4 +113,4 @@ function gcmb {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-bindkey '^ ' autosuggest-accept
+bindkey '^k' autosuggest-accept
