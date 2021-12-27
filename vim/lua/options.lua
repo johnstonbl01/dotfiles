@@ -26,7 +26,6 @@ option.signcolumn = 'yes'
 option.ignorecase = true
 option.smartcase = true
 option.clipboard = 'unnamedplus'
-option.confirm = true
 
 -- Window
 window.wrap = false

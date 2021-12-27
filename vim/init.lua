@@ -14,6 +14,7 @@ require('setup.dashboard')
 require('setup.lualine')
 require('setup.gitsigns')
 require('setup.neoformat')
+require('setup.comment')
 
 -- Theme setup
 vim.cmd[[colorscheme tokyonight]]

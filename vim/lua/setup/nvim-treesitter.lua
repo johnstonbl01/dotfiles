@@ -4,6 +4,9 @@ treesitter.setup({
   autotag = {
     enable = true
   },
+  context_commentstring = {
+    enable = true,
+  },
   ensure_installed = "all",
   ignore_install = { "haskell" },
   highlight = {

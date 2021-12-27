@@ -30,7 +30,8 @@ return require('packer').startup(function()
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/nvim-cmp'
   use 'jiangmiao/auto-pairs'
-  use 'tpope/vim-commentary'
+  use 'numToStr/Comment.nvim'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   -- Snippets
   use 'onsails/lspkind-nvim'
