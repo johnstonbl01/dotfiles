@@ -1,5 +1,18 @@
 local api = vim.api
+local lsp = vim.lsp
 local M = {}
+
+lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover,
+  {
+    border = "single"
+  }
+)
+
+lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help,
+  {
+    border = "single"
+  }
+)
 
 -- Credit https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
 function M.on_attach(client, bufnr)

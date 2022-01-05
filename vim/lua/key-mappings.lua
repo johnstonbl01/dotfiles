@@ -16,7 +16,7 @@ map('n', '<Leader>fr', [[:Telescope git_branches<CR>]], { noremap = true, silent
 -- Pane Split Shortucts
 map('n', '<Leader>q', [[:wincmd q<CR>]], { noremap = true })
 map('n', '<Leader>ws', [[:wincmd s<CR>]], { noremap = true })
-map('n', '<Leader>wv', [[:wincmd wv<CR>]], { noremap = true })
+map('n', '<Leader>wv', [[:wincmd v<CR>]], { noremap = true })
 map('n', '<Leader>wr', [[:wincmd r<CR>]], { noremap = true })
 map('n', '<Leader>wx', [[:wincmd x<CR>]], { noremap = true })
 

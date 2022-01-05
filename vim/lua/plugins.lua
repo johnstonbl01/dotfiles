@@ -28,13 +28,11 @@ return require('packer').startup(function()
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
+  use 'onsails/lspkind-nvim'
+  use "hrsh7th/cmp-nvim-lua"
   use 'hrsh7th/nvim-cmp'
-  use 'jiangmiao/auto-pairs'
-  use 'numToStr/Comment.nvim'
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
 
   -- Snippets
-  use 'onsails/lspkind-nvim'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
   use 'hrsh7th/vim-vsnip-integ'
@@ -42,6 +40,9 @@ return require('packer').startup(function()
   -- Formatting
   use 'sbdchd/neoformat'
   use 'editorconfig/editorconfig-vim'
+  use 'numToStr/Comment.nvim'
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'jiangmiao/auto-pairs'
 
   -- Lualine
   use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
