@@ -3,7 +3,7 @@ local api = vim.api
 local fn = vim.fn
 local M = {}
 
-local sumneko_binary = os.getenv("HOME") .. "/.langservers/lua-language-server/bin/lua-language-server"
+local sumneko_binary = "/usr/local/bin/lua-language-server"
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
