@@ -6,12 +6,16 @@ g.mapleader = ' '
 -- Open Nvim Tree
 map('n', '<Leader>a', [[:NvimTreeToggle<CR>]], { noremap = true, silent = true })
 
+-- Dashboard
+map ('n', '<Leader>cn', [[:DashboardNewFile<CR>]], { noremap = true, silent = true })
+
 -- Telescope
 map('n', '<Leader>ff', [[:Telescope find_files<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>fg', [[:Telescope live_grep<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>fb', [[:Telescope buffers<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>fd', [[<cmd>lua require('setup.telescope').search_dotfiles()<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>fr', [[:Telescope git_branches<CR>]], { noremap = true, silent = true })
+map('n', '<Leader>fo', [[:Telescope oldfiles<CR>]], { noremap = true, silent = true })
 
 -- Pane Split Shortucts
 map('n', '<Leader>q', [[:wincmd q<CR>]], { noremap = true })
@@ -36,3 +40,6 @@ map('n', '<c-l>', [[:wincmd l<CR>]], { silent = true })
 -- Toggle Trouble
 map('n', '<Leader>tt', [[:TroubleToggle<CR>]], { noremap = true, silent = true })
 map('n', '<Leader>tq', [[:TroubleToggle quickfix<CR>]], { noremap = true, silent = true })
+
+-- Refresh vim init.lua
+map('n', '<Leader>s', [[:source %<CR>]], { noremap = true })
