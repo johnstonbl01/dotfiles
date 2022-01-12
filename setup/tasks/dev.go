@@ -72,6 +72,7 @@ func setupDotfiles(t *taskr.Task) {
 		cloneDotfiles := fmt.Sprintf("git clone git@github.com:johnstonbl01/dotfiles.git %s", tskr.DotfilesDir)
 		symlinkVimrc := fmt.Sprintf("ln -sf %s/vim/* %s/", tskr.DotfilesDir, tskr.NeoVimConfigDir)
 		symlinkZshrc := fmt.Sprintf("ln -sf %s/zsh/.zshrc %s/.zshrc", tskr.DotfilesDir, tskr.HomeDir)
+		symlinkTmuxConfig := fmt.Sprintf("ln -sf %s/tmux/.tmux.conf %s/.tmux.conf", tskr.DotfilesDir, tskr.HomeDir)
 		symlinkGitignore := fmt.Sprintf("ln -sf %s/.gitignore_global %s/.gitignore_global", tskr.DotfilesDir, tskr.HomeDir)
 		symlinkGitconfig := fmt.Sprintf("ln -sf %s/.gitconfig %s/.gitconfig", tskr.DotfilesDir, tskr.HomeDir)
 		symlinkZshTheme := fmt.Sprintf("ln -sf %s/zsh/dieter-custom.zsh-theme %s/themes", tskr.DotfilesDir, tskr.ZSHDir)
@@ -117,6 +118,13 @@ func setupDotfiles(t *taskr.Task) {
 			tskr.HandleTaskError(t.ErrorPrefix(), err)
 			return
 		}
+
+		cmd = exec.Command(SHELL, "-c", symlinkTmuxConfig)
+		if _, err := cmd.CombinedOutput(); err != nil {
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
+		}
+
 	}
 }
 
