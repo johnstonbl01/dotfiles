@@ -1,5 +1,9 @@
 Setup new mac and project dot files
 
+## Downloads
+
+- M1: `curl -o ~/setup-macos https://raw.githubusercontent.com/johnstonbl01/dotfiles/master/setup/setup-macos-arm64`
+
 ## TODOS
 
 - [x] Setup error handling
