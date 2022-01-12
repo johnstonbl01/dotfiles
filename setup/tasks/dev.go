@@ -18,6 +18,7 @@ func setupDevEnv(t *taskr.Task) {
 		taskr.NewTask("Create screenshot folder", false, "[dev-env] ", createDevFolder),
 		taskr.NewTask("Install Oh-My-Zsh", false, "[dev-env] ", installOhMyZsh),
 		taskr.NewTask("Setup dotfiles", false, "[dev-env] ", setupDotfiles),
+		taskr.NewTask("Install tmux plugin manager", false, "[dev-env] ", setupTmuxPluginManager),
 		taskr.NewTask("Install zsh-autosuggestions plugin", false, "[dev-env] ", setupZshAutoSuggestions),
 		taskr.NewTask("Download tokyo night iterm theme", false, "[dev-env] ", downloadItermTheme),
 		taskr.NewTask("Setup sandbox project", false, "[dev-env] ", createSandboxProject),
@@ -28,11 +29,8 @@ func setupDevEnv(t *taskr.Task) {
 }
 
 func createDevFolder(t *taskr.Task) {
-	homeDir, _ := os.UserHomeDir()
-	devDir := fmt.Sprintf("%s/dev", homeDir)
-
 	t.Fn = func(tskr *taskr.Taskr) {
-		if err := os.MkdirAll(devDir, 0777); err != nil {
+		if err := os.MkdirAll(tskr.DevDir, 0777); err != nil {
 			tskr.HandleTaskError(t.ErrorPrefix(), err)
 			return
 		}
@@ -41,10 +39,10 @@ func createDevFolder(t *taskr.Task) {
 
 func createScreenshotFolder(t *taskr.Task) {
 	homeDir, _ := os.UserHomeDir()
-	devDir := fmt.Sprintf("%s/Screenshots", homeDir)
+	screenshotDir := fmt.Sprintf("%s/Screenshots", homeDir)
 
 	t.Fn = func(tskr *taskr.Taskr) {
-		if err := os.MkdirAll(devDir, 0777); err != nil {
+		if err := os.MkdirAll(screenshotDir, 0777); err != nil {
 			tskr.HandleTaskError(t.ErrorPrefix(), err)
 			return
 		}
@@ -143,7 +141,7 @@ func setupZshAutoSuggestions(t *taskr.Task) {
 
 func downloadItermTheme(t *taskr.Task) {
 	t.Fn = func(tskr *taskr.Taskr) {
-		themeDir := fmt.Sprintf("%s/iterm-themes", tskr.DevDir)
+		themeDir := fmt.Sprintf("%s/personal/iterm-themes", tskr.DevDir)
 		fileName := fmt.Sprintf("%s/tokyo-night.itermcolors", themeDir)
 
 		if err := os.MkdirAll(themeDir, 0777); err != nil {
@@ -225,6 +223,19 @@ func installNeoVimPackageManager(t *taskr.Task) {
 	t.Fn = func(tskr *taskr.Taskr) {
 		neovimLocals := fmt.Sprintf("%s/.local/share/nvim/site/pack/packer/start/packer.nvim", tskr.HomeDir)
 		cloneCmd := fmt.Sprintf("git clone --depth 1 https://github.com/wbthomason/packer.nvim %s", neovimLocals)
+
+		cmd := exec.Command(SHELL, "-c", cloneCmd)
+
+		if _, err := cmd.CombinedOutput(); err != nil {
+			tskr.HandleTaskError(t.ErrorPrefix(), err)
+			return
+		}
+	}
+}
+
+func setupTmuxPluginManager(t *taskr.Task) {
+	t.Fn = func(tskr *taskr.Taskr) {
+		cloneCmd := fmt.Sprintf("git clone https://github.com/tmux-plugins/tpm %s/.tmux/plugins/tpm", tskr.HomeDir)
 
 		cmd := exec.Command(SHELL, "-c", cloneCmd)
 

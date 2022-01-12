@@ -37,6 +37,7 @@ var finalTodos = []string{
 	"    [] import iterm profile",
 	"    [] install iterm themes",
 	"    [] install nvim plugins (vim --headless +PackerInstall +qa)",
+	"    [] install tmux plugins (prefix + I)",
 }
 
 type TaskFn func(tskr *Taskr)
@@ -102,7 +103,7 @@ func New(debug bool) *Taskr {
 	tempDir := fmt.Sprintf("%s/temp", homeDir)
 	devDir := fmt.Sprintf("%s/dev", homeDir)
 	zshDir := fmt.Sprintf("%s/.oh-my-zsh", homeDir)
-	dotfilesDir := fmt.Sprintf("%s/dotfiles", devDir)
+	dotfilesDir := fmt.Sprintf("%s/personal/dotfiles", devDir)
 	neovimConfigDir := fmt.Sprintf("%s/.config/nvim", homeDir)
 
 	t := &Taskr{
