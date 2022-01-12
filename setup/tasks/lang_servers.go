@@ -17,7 +17,6 @@ func languageServers(t *taskr.Task) {
 	t.SubTasks = []taskr.Task{
 		taskr.NewTask("", false, "[lang-servers] ", installNPMLangServers),
 		taskr.NewTask("", false, "[lang-servers] ", installBrewLangServers),
-		taskr.NewTask("lua-langauge-server", false, "[lang-servers] ", installLuaLangServer),
 		taskr.NewTask("ltex-ls", false, "[lang-servers] ", isntallLTexLangServer),
 		taskr.NewTask("updating langserver permissions", false, "[lang-servers] ", updateLangServerPermissions),
 	}
@@ -57,6 +56,7 @@ func installBrewLangServers(t *taskr.Task) {
 	langServers := []string{
 		"efm-langserver",
 		"terraform-ls",
+		"lua-language-server",
 	}
 
 	t.Fn = func(tskr *taskr.Taskr) {
@@ -71,33 +71,6 @@ func installBrewLangServers(t *taskr.Task) {
 				tskr.HandleTaskError(prefix, err)
 			}
 		}
-	}
-}
-
-func installLuaLangServer(t *taskr.Task) {
-	t.Fn = func(tskr *taskr.Taskr) {
-		tempLangDir := fmt.Sprintf("%s/lua-language-server", tskr.TempDir)
-		fileName := fmt.Sprintf("%s.zip", tempLangDir)
-
-		luaLangBinDir := fmt.Sprintf("%s/lua-language-server/bin", tskr.LangServerDir)
-		luaLangServerDir := fmt.Sprintf("%s/lua-language-server", tskr.LangServerDir)
-
-		// TODO: Maybe in future scrape to get latest version to install instead of hard-coding URL
-		if err := downloadFile(fileName, LUA_LANG_URL); err != nil {
-			tskr.HandleTaskError(t.ErrorPrefix(), err)
-			return
-		}
-
-		if _, err := unzip(fileName, tempLangDir); err != nil {
-			tskr.HandleTaskError(t.ErrorPrefix(), err)
-			return
-		}
-
-		macDir := fmt.Sprintf("%s/macOS", tempLangDir)
-		mainFile := fmt.Sprintf("%s/main.lua", macDir)
-
-		copyDir(macDir, luaLangBinDir)
-		copy(mainFile, fmt.Sprintf("%s/main.lua", luaLangServerDir))
 	}
 }
 
