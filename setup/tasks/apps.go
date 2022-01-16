@@ -15,15 +15,15 @@ func apps(t *taskr.Task) {
 func brewCasks(t *taskr.Task) {
 	apps := []string{
 		"alfred",
-		"google-chrome",
+		// "google-chrome",
 		"firefox",
 		"ngrok",
 		"qmoji",
 		"notion",
-		"1password",
+		// "1password",
 		"gitkraken",
 		"spotify",
-		"slack",
+		// "slack",
 		"iterm2",
 		"rescuetime",
 		"postman",
