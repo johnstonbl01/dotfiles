@@ -50,9 +50,11 @@ return require('packer').startup(function()
   -- Git
   use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use 'tpope/vim-fugitive'
+
   -- Misc
   use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" } }
   use { 'glepnir/dashboard-nvim' }
   use 'ThePrimeagen/vim-be-good'
   use 'lewis6991/impatient.nvim'
+  use 'tpope/vim-obsession'
 end)
