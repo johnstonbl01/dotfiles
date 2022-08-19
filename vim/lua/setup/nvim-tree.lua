@@ -1,87 +1,104 @@
-local g = vim.g
-local tree = require('nvim-tree')
+local tree = require("nvim-tree")
 
-g.nvim_tree_quit_on_open = 1
-g.nvim_tree_indent_markers = 1
-g.nvim_tree_git_hl = 1
-
-g.nvim_tree_icons = {
-  default = '',
-  symlink = '',
-  git = {
-    unstaged = '✗',
-    staged = '✓',
-    unmerged = '',
-    renamed = '➜',
-    untracked = '★',
-    deleted = '',
-    ignored = '◌'
-  },
-  folder = {
-    arrow_open = '',
-    arrow_closed = '',
-    default = ' ',
-    open = ' ',
-    empty = ' ',
-    empty_open = ' ',
-    symlink = ' ',
-    symlink_open = ' ',
-  }
-}
-
-tree.setup({
-  disable_netrw       = true,
-  hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
-  auto_close          = false,
-  open_on_tab         = false,
-  hijack_cursor       = false,
-  update_cwd          = false,
-  update_to_buf_dir   = {
-    enable = true,
-    auto_open = true,
-  },
-  diagnostics = {
-    enable = false,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+tree.setup(
+    {
+        auto_reload_on_write = true,
+        create_in_closed_folder = false,
+        disable_netrw = true,
+        hijack_netrw = true,
+        open_on_setup = false,
+        ignore_ft_on_setup = {},
+        open_on_tab = false,
+        hijack_cursor = false,
+        hijack_directories = {
+            enable = true,
+            auto_open = true
+        },
+        diagnostics = {
+            enable = false,
+            icons = {
+                hint = "",
+                info = "",
+                warning = "",
+                error = ""
+            }
+        },
+        git = {
+            enable = true,
+            ignore = true,
+            timeout = 400
+        },
+        update_focused_file = {
+            enable = true,
+            update_cwd = false,
+            ignore_list = {}
+        },
+        system_open = {
+            cmd = nil,
+            args = {}
+        },
+        filters = {
+            dotfiles = false,
+            custom = {
+                ".git"
+            }
+        },
+        actions = {
+            change_dir = {
+                enable = true,
+                global = false,
+                restrict_above_cwd = true
+            },
+            open_file = {
+                resize_window = false,
+                quit_on_open = true
+            },
+            remove_file = {
+                close_window = true
+            }
+        },
+        view = {
+            width = 30,
+            height = 30,
+            hide_root_folder = false,
+            side = "left",
+            mappings = {
+                custom_only = false,
+                list = {}
+            }
+        },
+        renderer = {
+            indent_markers = {
+              enable = true
+            },
+            highlight_git = true,
+            icons = {
+                glyphs = {
+                    default = "",
+                    symlink = "",
+                    git = {
+                        unstaged = "✗",
+                        staged = "✓",
+                        unmerged = "",
+                        renamed = "➜",
+                        untracked = "★",
+                        deleted = "",
+                        ignored = "◌"
+                    },
+                    folder = {
+                        arrow_open = "",
+                        arrow_closed = "",
+                        default = " ",
+                        open = " ",
+                        empty = " ",
+                        empty_open = " ",
+                        symlink = " ",
+                        symlink_open = " "
+                    }
+                }
+            }
+        }
     }
-  },
-  git = {
-    enable = true,
-    ignore = true,
-    timeout = 500,
-  },
-  update_focused_file = {
-    enable      = true,
-    update_cwd  = true,
-    ignore_list = {}
-  },
-  system_open = {
-    cmd  = nil,
-    args = {}
-  },
-  filters = {
-    dotfiles = false,
-    custom = {
-      '.git'
-    }
-  },
-  view = {
-    width = 30,
-    height = 30,
-    hide_root_folder = false,
-    side = 'left',
-    auto_resize = false,
-    mappings = {
-      custom_only = false,
-      list = {}
-    }
-  }
-})
+)
 
-vim.cmd[[highlight NvimTreeFolderIcon guifg=#CCCCCC]]
+vim.cmd [[highlight NvimTreeFolderIcon guifg=#CCCCCC]]

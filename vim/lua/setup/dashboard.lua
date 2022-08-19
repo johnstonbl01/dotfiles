@@ -1,22 +1,29 @@
-local g = vim.g
+local db = require('dashboard')
 
-g.dashboard_default_executive = 'telescope'
-g.dashboard_custom_footer = {'Build some shit'}
-g.dashboard_custom_section = {
-  find_file = {
-    description = { '  Find file               <space>ff' },
-    command = ':Telescope find_files'
+db.custom_footer = {'Build some shit'}
+
+db.custom_center = {
+  {
+    icon = '  ',
+    desc = 'Find file               ',
+    shortcut = '<space>ff',
+    action = ':Telescope find_files'
   },
-  recent_files = {
-    description = { '  Recent files            <space>fo' },
-    command = ':Telescope oldfiles'
+  {
+    icon = '  ',
+    desc = 'Recent files            ',
+    shortcut = '<space>fo',
+    action = ':Telescope oldfiles'
   },
-  new_file = {
-    description = { '  New file                <space>cn' },
-    command = ':DashboardNewFile'
+  {
+    icon = '  ',
+    desc = 'New file                ',
+    shortcut = '<space>cn',
+    action = ':DashboardNewFile'
   },
 }
-g.dashboard_custom_header = {
+
+db.custom_header = {
 '      .    .     .            +         .         .                 .  .',
 '       .                 .                   .               .          ',
 '              .    ,,o         .                  __.o+.                ',

@@ -1,13 +1,13 @@
 export LC_ALL="en_US.UTF-8"
 export ZSH="$HOME/.oh-my-zsh"
-export NVM_DIR="$HOME/.nvm"
-export NVM_COMPLETION=true
+# export NVM_DIR="$HOME/.nvm"
+# export NVM_COMPLETION=true
 export DEFAULT_AVD='Pixel 4 API 29'
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export GOPATH=$HOME/go
 export GOROOT="$(brew --prefix golang)/libexec"
 export GOBIN="${GOPATH}/bin"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+export PATH=$PATH:${GOPATH}/bin:${GOROOT}/bin
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
@@ -16,6 +16,11 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.langservers/lua-language-server/bin
 export PATH=$PATH:$HOME/.langservers/ltex-ls/bin
 export BAT_THEME=TwoDark
+
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
 
 # use ripgrep inside vim for fzf
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
@@ -42,6 +47,7 @@ plugins=(
   zsh-autosuggestions
   autojump
   nvm
+  asdf
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -114,3 +120,6 @@ function gcmb {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey '^k' autosuggest-accept
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
+export AWS_PROFILE=sts

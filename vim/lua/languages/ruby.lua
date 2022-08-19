@@ -2,7 +2,7 @@ local g = vim.g
 local lsp = require('languages.lsp')
 local M = {}
 
-g.python3_host_prog = "/opt/homebrew/bin/python3"
+g.ruby_host_prog= "/opt/homebrew/opt/ruby/bin/ruby"
 
 M.lsp = {
     capabilities = lsp.capabilities,
