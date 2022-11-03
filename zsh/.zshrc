@@ -17,8 +17,11 @@ export PATH=$PATH:$HOME/.langservers/lua-language-server/bin
 export PATH=$PATH:$HOME/.langservers/ltex-ls/bin
 export BAT_THEME=TwoDark
 
-if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
-  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+if [ -d "/usr/homebrew/opt/ruby/bin" ]; then
+  export PATH=/usr/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+elif [ -d "/usr/local/opt/ruby/bin" ]; then
+  export PATH=/usr/local/opt/ruby/bin:$PATH
   export PATH=`gem environment gemdir`/bin:$PATH
 fi
 
@@ -121,5 +124,7 @@ function gcmb {
 
 bindkey '^k' autosuggest-accept
 
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
+. /usr/local/opt/asdf/libexec/asdf.sh
+# . /opt/homebrew/opt/asdf/libexec/asdf.sh
+
 export AWS_PROFILE=sts

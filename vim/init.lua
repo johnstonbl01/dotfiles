@@ -18,3 +18,4 @@ require("setup.comment")
 
 -- Theme setup
 vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[highlight NvimTreeFolderIcon guifg=#CCCCCC]]
