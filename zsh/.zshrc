@@ -124,7 +124,10 @@ function gcmb {
 
 bindkey '^k' autosuggest-accept
 
-. /usr/local/opt/asdf/libexec/asdf.sh
-# . /opt/homebrew/opt/asdf/libexec/asdf.sh
+if [ -d "/usr/homebrew/opt/asdf" ]; then
+  . /opt/homebrew/opt/asdf/libexec/asdf.sh
+elif [ -d "/usr/local/opt/aadf" ]; then
+  . /usr/local/opt/asdf/libexec/asdf.sh
+fi
 
 export AWS_PROFILE=sts
