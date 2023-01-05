@@ -1,33 +1,43 @@
 local telescope = require("telescope")
 local actions = require('telescope.actions')
 
-telescope.setup(
-    {
-        pickers = {
-            find_files = {
-                -- Include hidden files except for .git
-                find_command = {"rg", "--files", "--iglob", "!.git", "--hidden"},
-            }
-        },
-        extensions = {
-            fzf = {
-                fuzzy = true,
-                override_generic_sorter = true,
-                override_file_sorter = true,
-                case_mode = "smart_case"
-            }
-        },
-        defaults = {
-            mappings = {
-              i = {
+telescope.setup {
+    defaults = {
+        mappings = {
+            i = {
                 ["<esc>"] = actions.close
-              }
             }
         }
     }
-)
+}
 
-telescope.load_extension("fzf")
+-- telescope.setup(
+--     {
+--         pickers = {
+--             find_files = {
+--                 -- Include hidden files except for .git
+--                 find_command = {"rg", "--files", "--iglob", "!.git", "--hidden"},
+--             }
+--         },
+--         extensions = {
+--             fzf = {
+--                 fuzzy = true,
+--                 override_generic_sorter = true,
+--                 override_file_sorter = true,
+--                 case_mode = "smart_case"
+--             }
+--         },
+--         defaults = {
+--             mappings = {
+--               i = {
+--                 ["<esc>"] = actions.close
+--               }
+--             }
+--         }
+--     }
+-- )
+
+-- telescope.load_extension("fzf")
 
 local M = {}
 

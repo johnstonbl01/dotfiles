@@ -1,5 +1,5 @@
 local g = vim.g
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
 g.mapleader = ' '
 
@@ -10,12 +10,14 @@ map('n', '<Leader>a', [[:NvimTreeToggle<CR>]], { noremap = true, silent = true }
 map ('n', '<Leader>cn', [[:DashboardNewFile<CR>]], { noremap = true, silent = true })
 
 -- Telescope
-map('n', '<Leader>ff', [[:Telescope find_files<CR>]], { noremap = true, silent = true })
-map('n', '<Leader>fg', [[:Telescope live_grep<CR>]], { noremap = true, silent = true })
-map('n', '<Leader>fb', [[:Telescope buffers<CR>]], { noremap = true, silent = true })
-map('n', '<Leader>fd', [[<cmd>lua require('setup.telescope').search_dotfiles()<CR>]], { noremap = true, silent = true })
-map('n', '<Leader>fr', [[:Telescope git_branches<CR>]], { noremap = true, silent = true })
-map('n', '<Leader>fo', [[:Telescope oldfiles<CR>]], { noremap = true, silent = true })
+map('n', '<Leader>ff', [[:Telescope find_files<CR>]], { noremap = true, silent = true, desc = '[F]ind [F]iles' })
+map('n', '<Leader>fg', [[:Telescope live_grep<CR>]], { noremap = true, silent = true, desc = '[F]ind by [G]rep' })
+map('n', '<Leader>fb', [[:Telescope buffers<CR>]], { noremap = true, silent = true, desc = '[F]ind in [B]uffer' })
+map('n', '<Leader>fd', [[<cmd>lua require('setup.telescope').search_dotfiles()<CR>]], { noremap = true, silent = true, desc = '[F]ind in [D]otfiles' })
+map('n', '<Leader>fr', [[:Telescope git_branches<CR>]], { noremap = true, silent = true, desc = '[F]ind git b[R]anch' })
+map('n', '<Leader>fo', [[:Telescope oldfiles<CR>]], { noremap = true, silent = true, desc = '[F]ind [O]ld file' })
+map('n', '<Leader>sh', [[:Telescope help_tags<CR>]], { noremap = true, silent = true, desc = '[S]earch [H]elp' })
+map('n', '<Leader>sd', [[:Telescope diagnostics<CR>]], { noremap = true, silent = true, desc = '[S]earch [D]iagnostics' })
 
 -- Pane Split Shortucts
 map('n', '<Leader>q', [[:wincmd q<CR>]], { noremap = true })
@@ -43,3 +45,9 @@ map('n', '<Leader>tq', [[:TroubleToggle quickfix<CR>]], { noremap = true, silent
 
 -- Refresh vim init.lua
 map('n', '<Leader>s', [[:source %<CR>]], { noremap = true })
+
+-- Diagnostic keymaps
+map('n', '[d', vim.diagnostic.goto_prev)
+map('n', ']d', vim.diagnostic.goto_next)
+map('n', '<leader>e', vim.diagnostic.open_float)
+map('n', '<leader>q', vim.diagnostic.setloclist)
