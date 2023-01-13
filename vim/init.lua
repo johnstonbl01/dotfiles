@@ -1,8 +1,8 @@
 require("plugins")
 require("impatient")
 require("options")
-require("key-mappings")
 require("autocommands")
+require("key-mappings")
 
 require("setup.tokyonight")
 require("setup.nvim-tree")
@@ -21,9 +21,9 @@ vim.cmd [[colorscheme tokyonight]]
 vim.cmd [[highlight NvimTreeFolderIcon guifg=#CCCCCC]]
 
 -- Automatically source and re-compile packer whenever you save this init.lua
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+local packer_group = vim.api.nvim_create_augroup('Packer', {clear = true})
 vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerCompile',
-  group = packer_group,
-  pattern = vim.fn.expand '$MYVIMRC',
+    command = 'source <afile> | PackerCompile',
+    group = packer_group,
+    pattern = vim.fn.expand '$MYVIMRC'
 })
