@@ -11,7 +11,8 @@ map('n', '<Leader>cn', [[:DashboardNewFile<CR>]],
     {noremap = true, silent = true})
 
 -- Telescope
-map('n', '<Leader>ff', [[:Telescope find_files<CR>]],
+map('n', '<Leader>ff',
+    [[<cmd>lua require('telescope.builtin').find_files({find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<CR>]],
     {noremap = true, silent = true, desc = '[F]ind [F]iles'})
 map('n', '<Leader>fg', [[:Telescope live_grep<CR>]],
     {noremap = true, silent = true, desc = '[F]ind by [G]rep'})
