@@ -17,7 +17,7 @@ require("setup.comment")
 require("setup.null-ls")
 
 -- Theme setup
-vim.cmd [[colorscheme tokyonight]]
+vim.cmd [[colorscheme duskfox]]
 vim.cmd [[highlight NvimTreeFolderIcon guifg=#CCCCCC]]
 
 -- Automatically source and re-compile packer whenever you save this init.lua

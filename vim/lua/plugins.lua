@@ -18,6 +18,7 @@ require('packer').startup(function(use)
     -- Themes
     use 'folke/tokyonight.nvim'
     use 'folke/lsp-colors.nvim'
+    use "EdenEast/nightfox.nvim"
 
     -- Icons
     use 'kyazdani42/nvim-web-devicons'
