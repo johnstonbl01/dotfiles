@@ -1,0 +1,9 @@
+---
+- name: Install neovim
+  shell: brew install neovim
+  tags:
+    - neovim
+- name: Install neovim
+  shell: brew install neovim
+  tags:
+    - neovim

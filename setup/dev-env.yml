@@ -1,0 +1,55 @@
+---
+- name: Create dev folder
+  shell: makedir ~/dev && makedir ~/dev/personal && makedir ~/dev/personal/iterm-themes
+  tags:
+    - dev-env
+- name: Create screenshot folder
+  shell:
+  tags:
+    - dev-env
+- name: Copy dotfiles
+  shell: makedir ~/Screenshots
+  tags:
+    - dev-env
+- name: Install tmux plugin manager
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+  tags:
+    - dev-env
+# - name: Download tokyo night iterm theme
+#   ansible.builtin.get_url: https://raw.githubusercontent.com/enkia/tokyo-night-vscode-theme/master/tokyo-night.itermcolors
+#   dest: ~/dev/personal/iterm-themes
+#   tags:
+#     - dev-env
+# - name: Download duskfox iterm theme
+#   ansible.builtin.get_url: https://raw.githubusercontent.com/EdenEast/nightfox.nvim/main/extra/duskfox/nightfox_iterm.itermcolors
+#   dest: ~/dev/personal/iterm-themes
+#   tags:
+#     - dev-env
+# - name: Download nightfox iterm theme
+#   ansible.builtin.get_url: https://raw.githubusercontent.com/EdenEast/nightfox.nvim/main/extra/nightfox/nightfox_iterm.itermcolors
+#   dest: ~/dev/personal/iterm-themes
+#   tags:
+#     - dev-env
+# TODO: unzip and move to ~/Library/Fonts
+# - name: Install Inconsolata nerd font
+#   ansible.builtin.get_url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Inconsolata.zip
+#   dest: ~/
+#   tags:
+#     - dev-env
+# TODO: Update to run the file after it is downloaded
+# - name: Map caps lock to esc
+#   ansible.builtin.get_url: https://gist.githubusercontent.com/liamdawson/8dba17715c452dad996932291193c353/raw/420d97c10526403849d8a5279cb2007840e546cd/com.ldaws.CapslockEsc.plist
+#   dest: ~/Library/LaunchAgents/com.ldaws.CapslockEsc.plist
+#   tags:
+#     - dev-env
+# - name: Install neovim package manager
+#   ansible.builtin.git:
+#     repo: git clone --depth 1 https://github.com/wbthomason/packer.nvim
+#     dest: ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+#   tags:
+#     - dev-env
+# TODO: run macos script
+# - name: Update OS settings
+# TODO: copy dotfiles

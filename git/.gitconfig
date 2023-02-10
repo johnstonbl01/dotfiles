@@ -1,0 +1,5 @@
+[user]
+	name = Blake Johnston
+	email = johnstonbl01@gmail.com
+[core]
+	excludesfile = /Users/blake/.gitignore_global

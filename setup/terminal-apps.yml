@@ -1,0 +1,9 @@
+---
+- name: Install brew terminal apps
+  shell: brew install terraform neovim autojump jq ffmpeg tree zsh-autosuggestions readline ripgrep fzf bat fd awscli exercism tig watchman fzf git tldr tmux tree-sitter
+  tags:
+    - terminal-apps
+# - name: Install brew cask apps
+#   shell: brew install --cask ngrok rescuetime alfred iterm2 postman docker bartender
+#   tags:
+#     - terminal-apps

@@ -1,14 +1,10 @@
-Setup new mac and project dot files
+# Setup new mac and project dot files
 
-## Downloads
+## Testing (Docker)
 
-- M1: `curl -o ~/setup-macos https://raw.githubusercontent.com/johnstonbl01/dotfiles/master/setup/setup-macos-arm64`
+```bash
+docker build ./setup/Dockerfile -t dotfiles
+docker run -it --rm -v ${PWD}/setup:/usr/local/bin dotifles bash
 
-## TODOS
-
-- [x] Setup error handling
-- [x] Migrate user folders to taskr instance
-- [x] Add timer
-- [ ] Migrate symlinks to golang
-- [ ] Migrate SSH setup to golang
-- [ ] Scrape lang server sites for latest version
+ansible-playbook --ask-become-pass setup.yml
+```

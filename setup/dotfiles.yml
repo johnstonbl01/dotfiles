@@ -1,0 +1,29 @@
+---
+# - name: Install stow
+#   ansible.builtin.shell:
+#     cmd: brew install stow
+#   args:
+#     executable: /bin/bash
+#   tags:
+#     - dotfiles
+# - name: Create dev folder
+#   ansible.builtin.shell:
+#     cmd: mkdir -p ~/dev/personal
+#   args:
+#     executable: /bin/bash
+#   tags:
+#     - dotfiles
+# - name: Clone dotfiles
+#   ansible.builtin.git:
+#     repo: https://github.com/johnstonbl01/dotfiles.git
+#     dest: ~/dev/personal/dotfiles
+#   tags:
+#     - dotfiles
+- name: Stow neovim config
+  ansible.builtin.shell:
+    cmd: stow neovim
+    chdir: ~/dev/personal/dotfiles
+  args:
+    executable: /bin/bash
+  tags:
+    - dotfiles

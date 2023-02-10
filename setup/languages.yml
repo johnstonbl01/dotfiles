@@ -1,0 +1,35 @@
+---
+- name: Install elixir
+  shell: brew install rebar3 erlang elixir
+  tags:
+    - languages
+- name: Install golang
+  shell: brew install go
+  tags:
+    - languages
+- name: Install lua
+  shell: brew install lua luajit luarocks
+  tags:
+    - languages
+- name: Install python
+  shell: brew install python3
+  tags:
+    - languages
+- name: Install ruby
+  shell: brew install ruby
+  tags:
+    - languages
+- name: Install nvm
+  shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+  tags:
+    - languages
+- name: Install lts node version
+  shell: chmod -R +x ~/.nvm && ~/.nvm/nvm.sh install lts
+  tags:
+    - languages
+- name: Install rust
+  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  tags:
+    - languages

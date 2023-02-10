@@ -123,6 +123,7 @@ function gcmb {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey '^k' autosuggest-accept
+bindkey -s ^f "tmux-switch-session\n"
 
 if [ -d "/usr/homebrew/opt/asdf" ]; then
   . /opt/homebrew/opt/asdf/libexec/asdf.sh

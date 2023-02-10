@@ -1,0 +1,12 @@
+---
+- name: New System Setup
+  hosts: localhost
+  become: true
+  become_user: blake
+  tasks:
+    # - import_tasks: zsh.yml
+    # - import_tasks: languages.yml
+    - import_tasks: dotfiles.yml
+    # - import_tasks: neovim.yml
+    # - import_tasks: terminal-apps.yml
+    # - import_tasks: dev-env.yml
