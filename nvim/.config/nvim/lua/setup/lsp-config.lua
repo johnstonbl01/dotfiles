@@ -46,7 +46,7 @@ require('mason').setup()
 local servers = {
     'clangd', 'rust_analyzer', 'pyright', 'bashls', 'cssls', 'dockerls',
     'eslint', 'elixirls', 'emmet_ls', 'erlangls', 'gopls', 'graphql', 'html',
-    'jsonls', 'tsserver', 'kotlin_language_server', 'sumneko_lua', 'marksman',
+    'jsonls', 'tsserver', 'kotlin_language_server', 'lua_ls', 'marksman',
     'prismals', 'ruby_ls', 'sqlls', 'tailwindcss', 'terraformls',
     'stylelint_lsp', 'svelte', 'taplo', 'vuels', 'yamlls'
 }
@@ -71,20 +71,6 @@ g.ruby_host_prog = "/usr/local/opt/ruby/bin/ruby"
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
-
-lsp_config.sumneko_lua.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {version = 'LuaJIT', path = runtime_path},
-            diagnostics = {globals = {'vim'}},
-            workspace = {library = vim.api.nvim_get_runtime_file('', true)},
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {enable = false}
-        }
-    }
-}
 
 lsp_config.bashls.setup {
     on_attach = on_attach,
