@@ -1,7 +1,7 @@
 ---
 - name: Install zsh
   ansible.builtin.shell:
-    cmd: brew install zsh
+    cmd: brew install zsh zsh-autosuggestions autojump
   args:
     executable: /bin/bash
   tags:
@@ -9,19 +9,5 @@
 - name: Install oh-my-zsh
   ansible.builtin.shell:
     cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  tags:
-    - zsh
-- name: Install zsh-autosuggestions
-  ansible.builtin.shell:
-    cmd: brew install zsh-autosuggestions
-  args:
-    executable: /bin/bash
-  tags:
-    - zsh
-- name: Install zsh-autosuggestions
-  ansible.builtin.shell:
-    cmd: brew install zsh-autosuggestions
-  args:
-    executable: /bin/bash
   tags:
     - zsh

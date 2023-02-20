@@ -1,27 +1,51 @@
 ---
-# - name: Install stow
-#   ansible.builtin.shell:
-#     cmd: brew install stow
-#   args:
-#     executable: /bin/bash
-#   tags:
-#     - dotfiles
-# - name: Create dev folder
-#   ansible.builtin.shell:
-#     cmd: mkdir -p ~/dev/personal
-#   args:
-#     executable: /bin/bash
-#   tags:
-#     - dotfiles
-# - name: Clone dotfiles
-#   ansible.builtin.git:
-#     repo: https://github.com/johnstonbl01/dotfiles.git
-#     dest: ~/dev/personal/dotfiles
-#   tags:
-#     - dotfiles
-- name: Stow neovim config
+- name: Install stow
   ansible.builtin.shell:
-    cmd: stow neovim
+    cmd: brew install stow
+  args:
+    executable: /bin/bash
+  tags:
+    - dotfiles
+- name: Create dev folder
+  ansible.builtin.shell:
+    cmd: mkdir -p ~/dev/personal
+  args:
+    executable: /bin/bash
+  tags:
+    - dotfiles
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: https://github.com/johnstonbl01/dotfiles.git
+    dest: ~/dev/personal/dotfiles
+  tags:
+    - dotfiles
+- name: Stow zshrc
+  ansible.builtin.shell:
+    cmd: rm ~/.zshrc && stow --target $HOME zsh
+    chdir: ~/dev/personal/dotfiles
+  args:
+    executable: /bin/bash
+  tags:
+    - dotfiles
+- name: Stow omz config
+  ansible.builtin.shell:
+    cmd: stow --target $HOME omz
+    chdir: ~/dev/personal/dotfiles
+  args:
+    executable: /bin/bash
+  tags:
+    - dotfiles
+- name: Stow git config
+  ansible.builtin.shell:
+    cmd: stow --target $HOME git
+    chdir: ~/dev/personal/dotfiles
+  args:
+    executable: /bin/bash
+  tags:
+    - dotfiles
+- name: Stow iterm2 preferences
+  ansible.builtin.shell:
+    cmd: stow --target $HOME iterm2
     chdir: ~/dev/personal/dotfiles
   args:
     executable: /bin/bash

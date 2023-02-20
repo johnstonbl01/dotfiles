@@ -1,0 +1,7 @@
+---
+- name: Update MacOS Settings
+  ansible.builtin.shell:
+    cmd: sh ./macos
+    chdir: ~/dev/personal/dotfiles
+  tags:
+    - os-settings

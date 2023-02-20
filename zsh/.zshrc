@@ -1,7 +1,6 @@
 export LC_ALL="en_US.UTF-8"
 export ZSH="$HOME/.oh-my-zsh"
-# export NVM_DIR="$HOME/.nvm"
-# export NVM_COMPLETION=true
+export NVM_DIR="$HOME/.nvm"
 export DEFAULT_AVD='Pixel 4 API 29'
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export GOPATH=$HOME/go
@@ -111,6 +110,7 @@ alias econf="cp ~/dev/dotfiles/project-files/.editorconfig ."
 alias tn="tmux new -A -s"
 alias ta="tmux a -t"
 alias tk="tmux kill-session -t"
+alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 
 # Removes merged git branches
 function gcmb {

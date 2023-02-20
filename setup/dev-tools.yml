@@ -1,0 +1,9 @@
+---
+- name: Install brew terminal apps
+  shell: brew install terraform jq ffmpeg tree readline ripgrep fzf bat fd awscli exercism tig watchman git tldr tree-sitter
+  tags:
+    - dev-tools
+- name: Install brew cask apps
+  shell: brew install --cask ngrok rescuetime iterm2 docker
+  tags:
+    - dev-tools
