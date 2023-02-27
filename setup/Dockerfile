@@ -9,7 +9,7 @@ ENV ANSIBLE_LOCALHOST_WARNING=False
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ARG DEBIAN_FONTEND=noninteractive
-RUN apt update && apt install -y software-properties-common && apt install -y curl git build-essential procps file sudo
+RUN apt update && apt install -y software-properties-common && apt install -y curl git build-essential procps file sudo locales
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
@@ -22,4 +22,6 @@ WORKDIR /usr/local/bin
 
 COPY ./*.yml ./
 RUN mkdir -p ~/Library/Fonts
+RUN mkdir -p ~/Library/Preferences
+RUN mkdir -p ~/Library/LaunchAgents
 

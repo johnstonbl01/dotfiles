@@ -1,0 +1,28 @@
+---
+- name: Install nvm
+  ansible.builtin.shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+  args:
+    executable: /bin/bash
+    creates: "$HOME/.nvm/nvm.sh"
+  tags:
+    - node
+- name: Add NVM_DIR to bashrc
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: export NVM_DIR="$HOME/.nvm"
+    create: true
+  tags:
+    - node
+- name: Source NVM in bashrc
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"'
+    create: true
+  tags:
+    - node
+- name: Install LTS node
+  ansible.builtin.shell: . ~/.nvm/nvm.sh && nvm install --lts
+  args:
+    executable: /bin/bash
+  tags:
+    - node

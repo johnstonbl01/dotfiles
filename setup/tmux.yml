@@ -1,0 +1,19 @@
+---
+- name: Install tmux
+  shell: brew install tmux
+  tags:
+    - tmux
+- name: Stow tmux config
+  ansible.builtin.shell:
+    cmd: stow --target $HOME tmux
+    chdir: ~/dev/personal/dotfiles
+  args:
+    executable: /bin/bash
+  tags:
+    - tmux
+- name: Install tmux package manager
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+  tags:
+    - tmux
