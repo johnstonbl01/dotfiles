@@ -123,7 +123,7 @@ function gcmb {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey '^k' autosuggest-accept
-bindkey -s ^f "tmux-switch-session\n"
+bindkey -s ^f "tmux-session-switch\n"
 
 if [ -d "/usr/homebrew/opt/asdf" ]; then
   . /opt/homebrew/opt/asdf/libexec/asdf.sh
@@ -132,3 +132,10 @@ elif [ -d "/usr/local/opt/aadf" ]; then
 fi
 
 export AWS_PROFILE=sts
+
+# DuskFox theme for FZF
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
+ --color=fg:#e0def4,bg:#232136,hl:#569fba
+ --color=fg+:#e0def4,bg+:#433c59,hl+:#65b1cd
+ --color=info:#a6dae3,prompt:#f6c177,pointer:#c4a7e7
+ --color=marker:#a3be8c,spinner:#c4a7e7,header:#c4a7e7'
