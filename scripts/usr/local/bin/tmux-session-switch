@@ -1,0 +1,21 @@
+#!/bin/bash
+
+touch ~/.temp_dirs
+
+find ~/dev/personal -mindepth 1 -maxdepth 1 -type d >> ~/.temp_dirs
+find ~/dev/work -mindepth 1 -maxdepth 2 -type d  >> ~/.temp_dirs
+
+session_dir=$(cat ~/.temp_dirs | fzf)
+session_name=$(basename "$session_dir" | tr . _ | tr ' ' _)
+
+if ! tmux has-session -t "$session_name" 2> /dev/null; then
+  tmux new-session -s "$session_name" -c "$session_dir" -d
+fi
+
+if ! tmux ls | grep attached; then
+  tmux a -t "$session_name" > /dev/null
+else
+  tmux switch-client -t "$session_name" > /dev/null
+fi
+
+rm ~/.temp_dirs
