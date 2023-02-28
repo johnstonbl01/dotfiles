@@ -3,7 +3,7 @@
 touch ~/.temp_dirs
 
 find ~/dev/personal -mindepth 1 -maxdepth 1 -type d >> ~/.temp_dirs
-find ~/dev/work -mindepth 1 -maxdepth 2 -type d  >> ~/.temp_dirs
+find ~/dev/work -mindepth 2 -maxdepth 2 -type d  >> ~/.temp_dirs
 
 session_dir=$(cat ~/.temp_dirs | fzf)
 session_name=$(basename "$session_dir" | tr . _ | tr ' ' _)
