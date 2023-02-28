@@ -12,8 +12,6 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:$HOME/.cargo/bin
-export PATH=$PATH:$HOME/.langservers/lua-language-server/bin
-export PATH=$PATH:$HOME/.langservers/ltex-ls/bin
 export BAT_THEME=TwoDark
 
 if [ -d "/usr/homebrew/opt/ruby/bin" ]; then
