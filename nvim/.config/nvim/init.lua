@@ -1,3 +1,5 @@
+require"nvim-treesitter.install".compilers = {"gcc"}
+
 require("plugins")
 require("impatient")
 require("options")

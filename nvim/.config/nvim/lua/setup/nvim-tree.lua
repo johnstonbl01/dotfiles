@@ -21,12 +21,7 @@ tree.setup({
         open_file = {resize_window = false, quit_on_open = true},
         remove_file = {close_window = true}
     },
-    view = {
-        width = 30,
-        hide_root_folder = false,
-        side = "left",
-        mappings = {custom_only = false, list = {}}
-    },
+    view = {width = 30, hide_root_folder = false, side = "left"},
     renderer = {
         indent_markers = {enable = true},
         highlight_git = true,
