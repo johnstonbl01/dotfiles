@@ -1,9 +1,15 @@
 ---
 - name: Install brew terminal apps
-  shell: brew install terraform jq ffmpeg tree readline ripgrep fzf bat fd awscli exercism tig watchman git tldr tree-sitter
+  ansible.builtin.shell:
+    cmd: brew install jq ripgrep fzf bat fd exercism tig watchman git tree-sitter
+  args:
+    executable: /bin/bash
   tags:
     - dev-tools
 - name: Install brew cask apps
-  shell: brew install --cask ngrok rescuetime iterm2 docker
+  ansible.builtin.shell:
+    cmd: brew install --cask ngrok rescuetime iterm2 docker anaconda karabiner-elements devtoys insomnia
+  args:
+    executable: /bin/bash
   tags:
     - dev-tools

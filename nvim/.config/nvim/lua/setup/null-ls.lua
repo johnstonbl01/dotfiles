@@ -11,13 +11,14 @@ null_ls.setup({
     null_ls.builtins.diagnostics.jsonlint,
     null_ls.builtins.diagnostics.luacheck,
     null_ls.builtins.diagnostics.markdownlint,
-    null_ls.builtins.diagnostics.pylint,
+    null_ls.builtins.diagnostics.misspell,
+    null_ls.builtins.diagnostics.ruff,
     null_ls.builtins.diagnostics.yamllint,
     null_ls.builtins.formatting.goimports,
     null_ls.builtins.formatting.lua_format,
+    null_ls.builtins.formatting.ruff,
     null_ls.builtins.formatting.markdownlint,
-    null_ls.builtins.formatting.prettier,
-    null_ls.builtins.formatting.rustfmt
+    null_ls.builtins.formatting.prettier
   },
   -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
   on_attach = function(client, bufnr)

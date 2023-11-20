@@ -24,7 +24,6 @@ local on_attach = function(_, bufnr)
     nmap('<leader>ws',
          require('telescope.builtin').lsp_dynamic_workspace_symbols,
          '[W]orkspace [S]ymbols')
-
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
@@ -44,11 +43,10 @@ end
 require('mason').setup()
 
 local servers = {
-    'clangd', 'rust_analyzer', 'pyright', 'bashls', 'cssls', 'dockerls',
-    'elixirls', 'emmet_ls', 'erlangls', 'gopls', 'graphql', 'html', 'jsonls',
-    'tsserver', 'kotlin_language_server', 'lua_ls', 'marksman', 'prismals',
-    'ruby_ls', 'sqlls', 'tailwindcss', 'terraformls', 'stylelint_lsp', 'svelte',
-    'taplo', 'volar', 'yamlls', 'phpactor'
+    'rust_analyzer', 'pyright', 'bashls', 'cssls', 'dockerls', 'gopls',
+    'graphql', 'html', 'jsonls', 'tsserver', 'kotlin_language_server', 'lua_ls',
+    'marksman', 'prismals', 'sqlls', 'tailwindcss', 'svelte', 'taplo', 'volar',
+    'yamlls'
 }
 
 require('mason-lspconfig').setup {ensure_installed = servers}
@@ -57,16 +55,27 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
-    require('lspconfig')[lsp].setup {
-        on_attach = on_attach,
-        capabilities = capabilities
-    }
+    if lsp ~= 'tsserver' then
+        require('lspconfig')[lsp].setup {
+            on_attach = on_attach,
+            capabilities = capabilities
+        }
+    end
 end
 
-require('fidget').setup()
+require('lspconfig').ruff_lsp.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    init_options = {preferences = {disableSuggestions = true}}
+}
 
-g.python3_host_prog = "/opt/homebrew/bin/python3"
-g.ruby_host_prog = "/usr/local/opt/ruby/bin/ruby"
+require('lspconfig').tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    init_options = {settings = {args = {}}}
+}
+
+require('fidget').setup()
 
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')

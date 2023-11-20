@@ -59,11 +59,13 @@ require('packer').startup(function(use)
         after = 'nvim-treesitter'
     }
     -- Autocomplete
+    use({"L3MON4D3/LuaSnip", tag = "v2.*", run = "make install_jsregexp"})
+    use "rafamadriz/friendly-snippets"
     use {
         'hrsh7th/nvim-cmp',
         requires = {
             'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip',
-            'saadparwaiz1/cmp_luasnip'
+            "rafamadriz/friendly-snippets", 'saadparwaiz1/cmp_luasnip'
         }
     }
 
@@ -73,10 +75,7 @@ require('packer').startup(function(use)
     use 'JoosepAlviste/nvim-ts-context-commentstring'
     use 'jiangmiao/auto-pairs'
     use 'tpope/vim-sleuth'
-    use {
-        'jose-elias-alvarez/null-ls.nvim',
-        requires = {'nvim-lua/plenary.nvim'}
-    }
+    use {'nvimtools/none-ls.nvim', requires = {'nvim-lua/plenary.nvim'}}
 
     -- Lualine
     use {

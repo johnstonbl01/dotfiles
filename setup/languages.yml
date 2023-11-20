@@ -1,11 +1,4 @@
 ---
-- name: Install elixir
-  ansible.builtin.shell:
-    cmd: brew install rebar3 erlang elixir
-  args:
-    executable: /bin/bash
-  tags:
-    - languages
 - name: Install golang
   ansible.builtin.shell:
     cmd: brew install go
@@ -20,28 +13,9 @@
     executable: /bin/bash
   tags:
     - languages
-- name: Install php
-  ansible.builtin.shell:
-    cmd: brew install php composer
-  args:
-    executable: /bin/bash
-  tags:
-    - languages
-- name: Install python
-  ansible.builtin.shell:
-    cmd: brew install python3
-  args:
-    executable: /bin/bash
-  tags:
-    - languages
-- name: Install ruby
-  ansible.builtin.shell: brew install ruby
-  args:
-    executable: /bin/bash
-  tags:
-    - languages
 - name: Install rust
-  ansible.builtin.shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  ansible.builtin.shell:
+    cmd: brew install rustup
   args:
     executable: /bin/bash
   tags:

@@ -1,6 +1,9 @@
 ---
 - name: Install tmux
-  shell: brew install tmux
+  ansible.builtin.shell:
+    cmd: brew install tmux
+  args:
+    executable: /bin/bash
   tags:
     - tmux
 - name: Stow tmux config
