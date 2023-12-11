@@ -1,32 +1,17 @@
-export LC_ALL="en_US.UTF-8"
+export PATH=$HOME/.bin:$PATH
+
 export ZSH="$HOME/.oh-my-zsh"
-export NVM_DIR="$HOME/.nvm"
-export DEFAULT_AVD='Pixel 4 API 29'
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export GOPATH=$HOME/go
-export GOROOT="$(brew --prefix golang)/libexec"
-export GOBIN="${GOPATH}/bin"
-export PATH=$PATH:${GOPATH}/bin:${GOROOT}/bin
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$HOME/.cargo/bin
 export BAT_THEME=TwoDark
 
-if [ -d "/usr/homebrew/opt/ruby/bin" ]; then
-  export PATH=/usr/homebrew/opt/ruby/bin:$PATH
-  export PATH=`gem environment gemdir`/bin:$PATH
-elif [ -d "/usr/local/opt/ruby/bin" ]; then
-  export PATH=/usr/local/opt/ruby/bin:$PATH
-  export PATH=`gem environment gemdir`/bin:$PATH
-fi
-
 # use ripgrep inside vim for fzf
-export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+# export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# change node version on cd with fnm
+eval "$(fnm env --use-on-cd)"
+# fnm autocomplete
+fpath+="/opt/homebrew/share/zsh/site-functions"
+autoload -Uz compinit
+compinit
 
 # Set default user
 # Will show server named if SSH'd
@@ -40,53 +25,17 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # zsh plugins
 plugins=(
-  git
-  macos
-  jsontools
-  npm
-  zsh-autosuggestions
-  autojump
-  nvm
-  asdf
+    git
+    macos
+    jsontools
+    npm
+    zsh-autosuggestions
+    autojump
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# NVMrc config for ZSH
-autoload -U add-zsh-hook
-load-nvmrc() {
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
-# launches the optionally specified AVD
-# With no argument, it will use $DEFAULT_AVD or the first available AVD
-# e.g.: LaunchAvdForeground Nexus_5X_API_23
-function LaunchAvdForeground {
-  local avdName=${1:-$DEFAULT_AVD}
-  echo "Launching AVD: $avdName"
-  $ANDROID_HOME/emulator/emulator -netdelay none -netspeed full -avd $avdName
-}
-
 # aliases
-alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
-alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
-alias devChrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --user-data-dir="/tmp/chrome_dev_session" --disable-web-security'
 alias dc="docker compose"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
@@ -94,46 +43,63 @@ alias dcl="docker compose logs"
 alias dcr="docker compose restart"
 alias ku="kubectl"
 alias rn="react-native"
-alias rproxy='adb reverse tcp:9090 tcp:9090'
-alias aem="LaunchAvdForeground"
-alias rnlogcat='adb logcat -s ReactNative:V ReactNativeJS:V'
 alias gco='git checkout'
 alias gpr='git push -u origin HEAD'
-alias gpo='git pull origin ${git rev-parse --symbolic-full-name --abrev-ref HEAD}'
 alias gcb='git checkout -b'
-alias vim="nvim"
-alias cat="bat"
-alias nr="npm run"
-alias econf="cp ~/dev/dotfiles/project-files/.editorconfig ."
 alias tn="tmux new -A -s"
 alias ta="tmux a -t"
 alias tk="tmux kill-session -t"
-alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+alias vim="nvim"
+alias cat="bat"
+alias grep="rg"
+alias npm="pnpm"
+alias npx="pnpm dlx"
 
 # Removes merged git branches
 function gcmb {
-  git branch --merged | grep -Ev '^(\*|  master$)' | xargs git branch -d ;
+    git branch --merged | grep -Ev '^(\*|  master$)' | xargs git branch -d ;
 }
 
-# tabtab source for packages
-[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+# autojump setup
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
+# autosuggestions
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# fzf fuzzy auto-complete
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-bindkey '^k' autosuggest-accept
+bindkey '^n' autosuggest-accept
 bindkey -s ^f "tmux-session-switch\n"
-
-if [ -d "/usr/homebrew/opt/asdf" ]; then
-  . /opt/homebrew/opt/asdf/libexec/asdf.sh
-elif [ -d "/usr/local/opt/aadf" ]; then
-  . /usr/local/opt/asdf/libexec/asdf.sh
-fi
-
-export AWS_PROFILE=sts
 
 # DuskFox theme for FZF
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
- --color=fg:#e0def4,bg:#232136,hl:#569fba
- --color=fg+:#e0def4,bg+:#433c59,hl+:#65b1cd
- --color=info:#a6dae3,prompt:#f6c177,pointer:#c4a7e7
- --color=marker:#a3be8c,spinner:#c4a7e7,header:#c4a7e7'
+--color=fg:#e0def4,bg:#232136,hl:#569fba
+--color=fg+:#e0def4,bg+:#433c59,hl+:#65b1cd
+--color=info:#a6dae3,prompt:#f6c177,pointer:#c4a7e7
+--color=marker:#a3be8c,spinner:#c4a7e7,header:#c4a7e7'
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+. "$HOME/.cargo/env"
+
+# pnpm
+export PNPM_HOME="/Users/blake/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

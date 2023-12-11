@@ -9,5 +9,7 @@
 - name: Install oh-my-zsh
   ansible.builtin.shell:
     cmd: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  args:
+    executable: /bin/bash
   tags:
     - zsh

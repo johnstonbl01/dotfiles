@@ -27,21 +27,9 @@
     - dev-env
 - name: Download and unzip Inconsolata Nerd Font
   ansible.builtin.unarchive:
-    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Inconsolata.zip
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/Inconsolata.zip
     dest: ~/Library/Fonts
     remote_src: true
-  tags:
-    - dev-env
-- name: Download Esc Mapping Script
-  ansible.builtin.get_url:
-    url: https://gist.githubusercontent.com/liamdawson/8dba17715c452dad996932291193c353/raw/420d97c10526403849d8a5279cb2007840e546cd/com.ldaws.CapslockEsc.plist
-    dest: ~/Library/LaunchAgents/com.ldaws.CapslockEsc.plist
-  tags:
-    - dev-env
-- name: Add Esc Script to Launch Control
-  ansible.builtin.shell:
-    cmd: launchctl load com.ldaws.CapslockEsc.plist
-    chdir: ~/Library/LaunchAgents
   tags:
     - dev-env
 - name: Add iTerm2 Preferences

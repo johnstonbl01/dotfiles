@@ -15,7 +15,7 @@ tree.setup({
     git = {enable = true, ignore = true, timeout = 400},
     update_focused_file = {enable = true, update_cwd = false, ignore_list = {}},
     system_open = {cmd = nil, args = {}},
-    filters = {dotfiles = false, custom = {".git"}},
+    filters = {dotfiles = false, git_ignored = true, custom = {"^\\.git$", "^\\.DS_STORE$"}},
     actions = {
         change_dir = {enable = true, global = false, restrict_above_cwd = true},
         open_file = {resize_window = false, quit_on_open = true},

@@ -9,5 +9,6 @@ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
 source ~/.bashrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+brew install --cask miniconda
 brew install ansible
 ansible-playbook setup.yml
