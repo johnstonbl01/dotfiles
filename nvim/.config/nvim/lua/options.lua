@@ -12,20 +12,23 @@ option.hidden = true
 option.cmdheight = 2
 option.updatetime = 300
 option.shortmess:append({ c = true })
-option.mouse = 'a'
+option.mouse = "a"
 option.nu = true
 option.swapfile = false
 option.incsearch = true
-option.completeopt = 'menu,menuone,noselect'
+option.completeopt = "menu,menuone,noselect"
 option.splitright = true
 option.splitbelow = true
 option.termguicolors = true
 option.number = true
 option.relativenumber = true
-option.signcolumn = 'yes'
+option.signcolumn = "yes"
 option.ignorecase = true
 option.smartcase = true
-option.clipboard = 'unnamedplus'
+option.clipboard = "unnamedplus"
+option.spelllang = "en_us"
+option.spell = true
+option.spelloptions = "camel"
 
 -- Window
 window.wrap = false
