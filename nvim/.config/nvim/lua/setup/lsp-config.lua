@@ -117,6 +117,7 @@ lsp_config.ruff_lsp.setup({
 })
 
 lsp_config.bashls.setup({
+	filetypes = { "sh", "zsh" },
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
@@ -176,6 +177,7 @@ lsp_config.typos_lsp.setup({
 lsp_config.volar.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
+	filetypes = { "vue" },
 	init_options = {
 		typescript = {
 			tsdk = "/Users/blake/Library/pnpm/global/5/node_modules/typescript/lib",

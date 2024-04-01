@@ -12,6 +12,7 @@ local servers = {
 	"cssmodules_ls",
 	"docker_compose_language_service",
 	"dockerls",
+	"eslint",
 	"gopls",
 	"html",
 	"jsonls",

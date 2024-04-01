@@ -12,7 +12,7 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require("packer").startup(function(use)
-	-- Package maanger
+	-- Package manager
 	use("wbthomason/packer.nvim")
 
 	-- Themes

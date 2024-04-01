@@ -24,3 +24,10 @@ require("setup.null-ls")
 -- Theme setup
 vim.cmd([[colorscheme duskfox]])
 vim.cmd([[highlight NvimTreeFolderIcon guifg=#CCCCCC]])
+
+-- MDX support
+vim.filetype.add({
+	extension = {
+		mdx = "mdx",
+	},
+})

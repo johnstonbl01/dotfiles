@@ -53,7 +53,7 @@ alias vim="nvim"
 alias cat="bat"
 alias grep="rg"
 alias npm="pnpm"
-alias npx="pnpm dlx"
+alias npx="pnpm exec"
 
 # Removes merged git branches
 function gcmb {
@@ -99,7 +99,7 @@ unset __conda_setup
 # pnpm
 export PNPM_HOME="/Users/blake/Library/pnpm"
 case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
+    *":$PNPM_HOME:"*) ;;
+    *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
