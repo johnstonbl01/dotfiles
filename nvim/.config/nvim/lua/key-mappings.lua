@@ -1,8 +1,6 @@
 local g = vim.g
 local map = vim.keymap.set
 
-g.mapleader = " "
-
 -- Open Nvim Tree
 map("n", "<Leader>a", [[:NvimTreeToggle<CR>]], { noremap = true, silent = true })
 
@@ -51,8 +49,18 @@ map("n", "<c-h>", [[:TmuxNavigateLeft<CR>]], { silent = true })
 map("n", "<c-l>", [[:TmuxNavigateRight<CR>]], { silent = true })
 
 -- Toggle Trouble
-map("n", "<Leader>tt", [[:TroubleToggle<CR>]], { noremap = true, silent = true })
-map("n", "<Leader>tq", [[:TroubleToggle quickfix<CR>]], { noremap = true, silent = true })
+map(
+	"n",
+	"<Leader>tt",
+	[[<cmd>Trouble diagnostics toggle<CR>]],
+	{ noremap = true, silent = true, desc = "Diagnostics (Trouble)" }
+)
+map(
+	"n",
+	"<Leader>tq",
+	[[<cmd>Trouble qflist toggle<CR>]],
+	{ noremap = true, silent = true, desc = "Quickfix List (Trouble)" }
+)
 
 -- Switch Tmux Sessions
 map("n", "<c-f>", [[:!tmux neww tmux-session-switch<CR>]], { noremap = true, silent = true })
