@@ -76,6 +76,11 @@ lsp_config.eslint.setup({
 	packageManager = "pnpm",
 	on_attach = on_attach,
 	capabilities = capabilities,
+	settings = {
+		experimental = {
+			useFlatConfig = false,
+		},
+	},
 })
 
 lsp_config.lua_ls.setup({
@@ -123,10 +128,10 @@ lsp_config.bashls.setup({
 })
 
 lsp_config.cssmodules_ls.setup({
-	on_attach = function(client)
+	on_attach = function(client, bufnr)
 		-- avoid conflict with typescript
 		client.server_capabilities.definitionProvider = false
-		on_attach(client)
+		on_attach(client, bufnr)
 	end,
 	capabilities = capabilities,
 	init_options = {
