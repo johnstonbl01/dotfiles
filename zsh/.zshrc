@@ -1,10 +1,13 @@
 export PATH=$HOME/.bin:$PATH
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 export BAT_THEME=TwoDark
 
 # use ripgrep inside vim for fzf
-# export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 
 # change node version on cd with fnm
 eval "$(fnm env --use-on-cd)"
@@ -25,12 +28,12 @@ HIST_STAMPS="mm/dd/yyyy"
 
 # zsh plugins
 plugins=(
-    git
-    macos
-    jsontools
-    npm
-    zsh-autosuggestions
-    autojump
+	git
+	macos
+	jsontools
+	npm
+	zsh-autosuggestions
+	autojump
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -57,7 +60,7 @@ alias npx="pnpm exec"
 
 # Removes merged git branches
 function gcmb {
-    git branch --merged | grep -Ev '^(\*|  master$)' | xargs git branch -d ;
+	git branch --merged | grep -Ev '^(\*|  master$)' | xargs git branch -d
 }
 
 # autojump setup
@@ -67,7 +70,7 @@ function gcmb {
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf fuzzy auto-complete
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
 
 bindkey '^n' autosuggest-accept
 bindkey -s ^f "tmux-session-switch\n"
@@ -81,15 +84,15 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+	eval "$__conda_setup"
 else
-    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
-    fi
+	if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+		. "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+	else
+		export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+	fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
@@ -99,7 +102,7 @@ unset __conda_setup
 # pnpm
 export PNPM_HOME="/Users/blake/Library/pnpm"
 case ":$PATH:" in
-    *":$PNPM_HOME:"*) ;;
-    *) export PATH="$PNPM_HOME:$PATH" ;;
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
