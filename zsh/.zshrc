@@ -6,6 +6,7 @@ export BAT_THEME=TwoDark
 
 # use ripgrep inside vim for fzf
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -25,6 +26,7 @@ CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 HIST_STAMPS="mm/dd/yyyy"
+export KUBE_EDITOR=nvim
 
 # zsh plugins
 plugins=(
@@ -34,6 +36,7 @@ plugins=(
 	npm
 	zsh-autosuggestions
 	autojump
+	kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -44,7 +47,6 @@ alias dcu="docker-compose up -d"
 alias dcd="docker-compose down"
 alias dcl="docker-compose logs"
 alias dcr="docker-compose restart"
-alias ku="kubectl"
 alias rn="react-native"
 alias gco='git checkout'
 alias gpr='git push -u origin HEAD'
@@ -70,7 +72,7 @@ function gcmb {
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # fzf fuzzy auto-complete
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
 
 bindkey '^n' autosuggest-accept
 bindkey -s ^f "tmux-session-switch\n"
