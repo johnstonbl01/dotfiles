@@ -50,3 +50,6 @@ map("n", "<Leader>wx", [[:wincmd x<CR>]], { noremap = true })
 
 -- Switch Tmux Sessions
 map("n", "<c-f>", [[:!tmux neww tmux-session-switch<CR>]], { noremap = true, silent = true })
+
+-- Copy current file path
+map("n", "<Leader>cf", '<cmd>:let @+= expand("%")<CR>')

@@ -1,3 +1,4 @@
+-- Global Key Mappings
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

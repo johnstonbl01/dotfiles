@@ -14,6 +14,10 @@ local lsp_config = {
 		},
 	},
 	ts_ls = {
+		init_options = {
+			hostInfo = "neovim",
+			maxTsServerMemory = 8192,
+		},
 		capabilities = {
 			server_capabilities = {
 				documentFormattingProvider = false,
@@ -47,10 +51,10 @@ return {
 		{
 			"mhanberg/output-panel.nvim",
 			-- Enable to debug LSP logs
-			enabled = false,
+			enabled = true,
 			event = "VeryLazy",
 			config = function()
-				require("output_panel").setup()
+				require("output_panel").setup({})
 			end,
 		},
 	},

@@ -25,6 +25,7 @@ CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 HIST_STAMPS="mm/dd/yyyy"
+export KUBE_EDITOR=nvim
 
 # zsh plugins
 plugins=(
@@ -39,12 +40,11 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # aliases
-alias dc="docker compose"
-alias dcu="docker compose up -d"
-alias dcd="docker compose down"
-alias dcl="docker compose logs"
-alias dcr="docker compose restart"
-alias ku="kubectl"
+alias dc="docker-compose"
+alias dcu="docker-compose up -d"
+alias dcd="docker-compose down"
+alias dcl="docker-compose logs"
+alias dcr="docker-compose restart"
 alias rn="react-native"
 alias gco='git checkout'
 alias gpr='git push -u origin HEAD'
@@ -55,8 +55,8 @@ alias tk="tmux kill-session -t"
 alias vim="nvim"
 alias cat="bat"
 alias grep="rg"
-alias npm="pnpm"
-alias npx="pnpm exec"
+# alias npm="pnpm"
+# alias npx="pnpm exec"
 
 # Removes merged git branches
 function gcmb {

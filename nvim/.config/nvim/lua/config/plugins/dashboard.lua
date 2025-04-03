@@ -55,7 +55,7 @@ return {
 						group = "Number",
 					},
 				},
-				footer = { "", "", "", ":space_invader: Build cool shit :space_invader:" },
+				footer = { "", "", "", "👾 Build cool shit 👾" },
 			},
 		})
 	end,
