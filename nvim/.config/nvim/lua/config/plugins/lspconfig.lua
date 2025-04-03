@@ -1,5 +1,6 @@
-local required_lsps = { "lua_ls", "ts_ls", "eslint", "typos_lsp" }
-local formatters = { "prettier", "stylua" }
+local required_lsps =
+	{ "lua_ls", "ts_ls", "eslint", "typos_lsp", "cssls", "cssmodules_ls", "dockerls", "html", "jsonls", "yamlls" }
+local formatters = { "prettier", "stylua", "shfmt" }
 
 local lsp_config = {
 	lua_ls = {
