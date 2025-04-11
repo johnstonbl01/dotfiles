@@ -1,6 +1,7 @@
 local map = vim.keymap.set
 local option = vim.opt
 local window = vim.wo
+local diagnostic = vim.diagnostic
 
 vim.syntax = true
 
@@ -37,6 +38,9 @@ option.undofile = true
 
 -- Window
 window.wrap = false
+
+-- Ensure lint errors show up inline
+diagnostic.config({ virtual_text = true })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 map("n", "<Esc>", "<cmd>nohlsearch<CR>")

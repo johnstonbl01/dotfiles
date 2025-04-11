@@ -1,5 +1,6 @@
 export PATH=$HOME/.bin:$PATH
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+export ANDROID_HOME="/Users/blake/Library/Android/sdk"
 
 export ZSH="$HOME/.oh-my-zsh"
 export BAT_THEME=TwoDark
@@ -25,7 +26,6 @@ CASE_SENSITIVE="true"
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_TITLE="true"
 HIST_STAMPS="mm/dd/yyyy"
-export KUBE_EDITOR=nvim
 
 # zsh plugins
 plugins=(
@@ -55,8 +55,9 @@ alias tk="tmux kill-session -t"
 alias vim="nvim"
 alias cat="bat"
 alias grep="rg"
-# alias npm="pnpm"
-# alias npx="pnpm exec"
+alias npm="pnpm"
+alias npx="pnpm exec"
+alias onpm="npm"
 
 # Removes merged git branches
 function gcmb {
